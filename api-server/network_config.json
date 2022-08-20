@@ -1,0 +1,380 @@
+{
+	"name": "drlnet",
+  "description": "drlnet",
+	"version": "1.0.0",
+	"license": "Apache-2.0",
+  "client": {
+      "organization": "org1"
+    },
+	"channels": {
+		"drlchannel": { 
+			"orderers": [ "orderer1.orderer.drlnet.com", "orderer2.orderer.drlnet.com", "orderer3.orderer.drlnet.com", "orderer4.orderer.drlnet.com", "orderer5.orderer.drlnet.com" ],
+      "peers": {
+				"peer0.org1.drlnet.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+        },
+				"peer1.org1.drlnet.com": {
+					"endorsingPeer": false,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": false
+        },
+				"peer0.org2.drlnet.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+        },
+				"peer1.org2.drlnet.com": {
+					"endorsingPeer": false,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": false
+        },
+				"peer0.org3.drlnet.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+        },
+				"peer1.org3.drlnet.com": {
+					"endorsingPeer": false,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": false
+        },
+				"peer0.org4.drlnet.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+        },
+				"peer1.org4.drlnet.com": {
+					"endorsingPeer": false,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": false
+        },
+				"peer0.org5.drlnet.com": {
+					"endorsingPeer": true,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": true
+        },
+				"peer1.org5.drlnet.com": {
+					"endorsingPeer": false,
+					"chaincodeQuery": true,
+					"ledgerQuery": true,
+					"eventSource": false
+        }
+     },
+      "chaincodes": [ "dprcc:v1.0", "activeCCDRcc:v1.0", "passiveCCDRcc:v1.0", "documentscc:v1.0", "DRLDocscc:v1.0", "IGCAdmincc:v1.0", "Licensecc:v1.0", "Organizationcc:v1.0", "OrgAdmincc:v1.0", "Userscc:v1.0", "Userprofilecc:v1.0" ]
+      }
+    },
+	"organizations": {
+		"org1": {
+           "mspid": "org1MSP",
+           "certificateAuthorities": [
+               "ca.org1.drlnet.com"
+            ],
+            "adminPrivateKey": {
+				"path": "./crypto/org1/admin/msp/keystore/priv_sk"
+			},
+			"signedCert": {
+				"path": "./crypto/org1/admin/msp/signcerts/Admin@org1.drlnet.com-cert.pem"
+			},
+            "peers": [
+				"peer0.org1.drlnet.com",
+				"peer1.org1.drlnet.com" ]
+				},
+		"org2": {
+           "mspid": "org2MSP",
+           "certificateAuthorities": [
+               "ca.org2.drlnet.com"
+            ],
+            "adminPrivateKey": {
+				"path": "./crypto/org2/admin/msp/keystore/priv_sk"
+			},
+			"signedCert": {
+				"path": "./crypto/org2/admin/msp/signcerts/Admin@org2.drlnet.com-cert.pem"
+			},
+            "peers": [
+				"peer0.org2.drlnet.com",
+				"peer1.org2.drlnet.com" ]
+				},
+		"org3": {
+           "mspid": "org3MSP",
+           "certificateAuthorities": [
+               "ca.org3.drlnet.com"
+            ],
+            "adminPrivateKey": {
+				"path": "./crypto/org3/admin/msp/keystore/priv_sk"
+			},
+			"signedCert": {
+				"path": "./crypto/org3/admin/msp/signcerts/Admin@org3.drlnet.com-cert.pem"
+			},
+            "peers": [
+				"peer0.org3.drlnet.com",
+				"peer1.org3.drlnet.com" ]
+				},
+		"org4": {
+           "mspid": "org4MSP",
+           "certificateAuthorities": [
+               "ca.org4.drlnet.com"
+            ],
+            "adminPrivateKey": {
+				"path": "./crypto/org4/admin/msp/keystore/priv_sk"
+			},
+			"signedCert": {
+				"path": "./crypto/org4/admin/msp/signcerts/Admin@org4.drlnet.com-cert.pem"
+			},
+            "peers": [
+				"peer0.org4.drlnet.com",
+				"peer1.org4.drlnet.com" ]
+				},
+		"org5": {
+           "mspid": "org5MSP",
+           "certificateAuthorities": [
+               "ca.org5.drlnet.com"
+            ],
+            "adminPrivateKey": {
+				"path": "./crypto/org5/admin/msp/keystore/priv_sk"
+			},
+			"signedCert": {
+				"path": "./crypto/org5/admin/msp/signcerts/Admin@org5.drlnet.com-cert.pem"
+			},
+            "peers": [
+				"peer0.org5.drlnet.com",
+				"peer1.org5.drlnet.com" ]
+				}
+    },
+	"peers": {
+  "peer0.org1.drlnet.com": {
+        "url": "grpcs://localhost:7051",
+        "eventUrl": "grpcs://localhost:7053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer0.org1.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org1/tls/peer0/ca.crt"
+        }
+    },
+  "peer1.org1.drlnet.com": {
+        "url": "grpcs://localhost:8051",
+        "eventUrl": "grpcs://localhost:8053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer1.org1.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org1/tls/peer1/ca.crt"
+        }
+    },
+  "peer0.org2.drlnet.com": {
+        "url": "grpcs://localhost:9051",
+        "eventUrl": "grpcs://localhost:9053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer0.org2.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org2/tls/peer0/ca.crt"
+        }
+    },
+  "peer1.org2.drlnet.com": {
+        "url": "grpcs://localhost:10051",
+        "eventUrl": "grpcs://localhost:10053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer1.org2.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org2/tls/peer1/ca.crt"
+        }
+    },
+  "peer0.org3.drlnet.com": {
+        "url": "grpcs://localhost:11051",
+        "eventUrl": "grpcs://localhost:11053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer0.org3.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org3/tls/peer0/ca.crt"
+        }
+    },
+  "peer1.org3.drlnet.com": {
+        "url": "grpcs://localhost:12051",
+        "eventUrl": "grpcs://localhost:12053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer1.org3.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org3/tls/peer1/ca.crt"
+        }
+    },
+  "peer0.org4.drlnet.com": {
+        "url": "grpcs://localhost:13051",
+        "eventUrl": "grpcs://localhost:13053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer0.org4.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org4/tls/peer0/ca.crt"
+        }
+    },
+  "peer1.org4.drlnet.com": {
+        "url": "grpcs://localhost:14051",
+        "eventUrl": "grpcs://localhost:14053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer1.org4.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org4/tls/peer1/ca.crt"
+        }
+    },
+  "peer0.org5.drlnet.com": {
+        "url": "grpcs://localhost:15051",
+        "eventUrl": "grpcs://localhost:15053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer0.org5.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org5/tls/peer0/ca.crt"
+        }
+    },
+  "peer1.org5.drlnet.com": {
+        "url": "grpcs://localhost:16051",
+        "eventUrl": "grpcs://localhost:16053",
+        "grpcOptions": {
+            "ssl-target-name-override": "peer1.org5.drlnet.com"
+        },
+        "tlsCACerts": {
+            "path": "./crypto/org5/tls/peer1/ca.crt"
+        }
+    }
+   },
+	"certificateAuthorities": {
+  "ca.org1.drlnet.com": {
+        "url": "https://localhost:7054",
+        "httpOptions": {
+		    "verify": false
+		},
+        "tlsCACerts": {
+            "path": "./crypto/org1/tls/ca/ca.org1.drlnet.com-cert.pem"
+        },
+        "registrar": [
+            {
+                "enrollId": "drlnetorg1",
+                "enrollSecret": "IGCnetqork"
+            }
+        ]
+    },
+  "ca.org2.drlnet.com": {
+        "url": "https://localhost:8054",
+        "httpOptions": {
+		    "verify": false
+		},
+        "tlsCACerts": {
+            "path": "./crypto/org2/tls/ca/ca.org2.drlnet.com-cert.pem"
+        },
+        "registrar": [
+            {
+                "enrollId": "drlnetorg2",
+                "enrollSecret": "IGCnetwwork"
+            }
+        ]
+    },
+  "ca.org3.drlnet.com": {
+        "url": "https://localhost:9054",
+        "httpOptions": {
+		    "verify": false
+		},
+        "tlsCACerts": {
+            "path": "./crypto/org3/tls/ca/ca.org3.drlnet.com-cert.pem"
+        },
+        "registrar": [
+            {
+                "enrollId": "drlnetorg3",
+                "enrollSecret": "IGCnetwork"
+            }
+        ]
+    },
+  "ca.org4.drlnet.com": {
+        "url": "https://localhost:10054",
+        "httpOptions": {
+		    "verify": false
+		},
+        "tlsCACerts": {
+            "path": "./crypto/org4/tls/ca/ca.org4.drlnet.com-cert.pem"
+        },
+        "registrar": [
+            {
+                "enrollId": "drlnetorg4",
+                "enrollSecret": "IGCnetwork"
+            }
+        ]
+    },
+  "ca.org5.drlnet.com": {
+        "url": "https://localhost:11054",
+        "httpOptions": {
+		    "verify": false
+		},
+        "tlsCACerts": {
+            "path": "./crypto/org5/tls/ca/ca.org5.drlnet.com-cert.pem"
+        },
+        "registrar": [
+            {
+                "enrollId": "drlnetorg5",
+                "enrollSecret": "IGCnetwork"
+            }
+        ]
+    }
+},
+	"orderers": {
+		"orderer1.orderer.drlnet.com": {
+			"url": "grpcs://localhost:7050",
+			"grpcOptions": {
+				"ssl-target-name-override": "orderer1.orderer.drlnet.com"
+			},
+			"tlsCACerts": {
+				"path": "./crypto/orderer/orderer1/tls/ca.crt"
+			}
+		},
+		"orderer2.orderer.drlnet.com": {
+			"url": "grpcs://localhost:8050",
+			"grpcOptions": {
+				"ssl-target-name-override": "orderer2.orderer.drlnet.com"
+			},
+			"tlsCACerts": {
+				"path": "./crypto/orderer/orderer2/tls/ca.crt"
+			}
+		},
+		"orderer3.orderer.drlnet.com": {
+			"url": "grpcs://localhost:9050",
+			"grpcOptions": {
+				"ssl-target-name-override": "orderer3.orderer.drlnet.com"
+			},
+			"tlsCACerts": {
+				"path": "./crypto/orderer/orderer3/tls/ca.crt"
+			}
+		},
+		"orderer4.orderer.drlnet.com": {
+			"url": "grpcs://localhost:10050",
+			"grpcOptions": {
+				"ssl-target-name-override": "orderer4.orderer.drlnet.com"
+			},
+			"tlsCACerts": {
+				"path": "./crypto/orderer/orderer4/tls/ca.crt"
+			}
+		},
+		"orderer5.orderer.drlnet.com": {
+			"url": "grpcs://localhost:11050",
+			"grpcOptions": {
+				"ssl-target-name-override": "orderer5.orderer.drlnet.com"
+			},
+			"tlsCACerts": {
+				"path": "./crypto/orderer/orderer5/tls/ca.crt"
+			}
+		}
+    }
+}

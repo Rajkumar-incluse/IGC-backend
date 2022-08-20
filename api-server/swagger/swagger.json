@@ -1,0 +1,3257 @@
+{
+    "info": {
+        "title": "Rest API Portal",
+        "version": "v1",
+        "description": "RESTful API"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "scheme": "bearer",
+            "in": "header",
+            "description": "Bearer <token>"
+        }
+    },
+    "swagger": "2.0",
+    "paths": {
+        "/register": {
+            "channel": "common",
+            "post": {
+                "tags": [
+                    "usermanagement"
+                ],
+                "description": "Create user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create User",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "orgName": {
+                                    "type": "string"
+                                },
+                                "role": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create user"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "channel": "common",
+            "post": {
+                "tags": [
+                    "usermanagement"
+                ],
+                "description": "Login user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Login User",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "orgName": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login user"
+                    }
+                }
+            }
+        },
+        "/userList": {
+            "channel": "common",
+            "post": {
+                "tags": [
+                    "usermanagement"
+                ],
+                "description": "User List",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User List",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User List"
+                    }
+                }
+            }
+        },
+        "/editUser": {
+            "channel": "common",
+            "post": {
+                "tags": [
+                    "usermanagement"
+                ],
+                "description": "Edit User",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Edit User",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "role": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Edit User"
+                    }
+                }
+            }
+        },
+        "/changePassword": {
+            "channel": "common",
+            "post": {
+                "tags": [
+                    "usermanagement"
+                ],
+                "description": "User List",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User List",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User List"
+                    }
+                }
+            }
+        },
+        "/assetapi/dpr/create": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "dpr"
+                ],
+                "description": "Create dpr",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create dpr",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "ShipperNumber": {
+                                    "type": "string"
+                                },
+                                "ProductList": {
+                                    "type": "string"
+                                },
+                                "TransportMode": {
+                                    "type": "string"
+                                },
+                                "StartedAt": {
+                                    "type": "string"
+                                },
+                                "DeliverAt": {
+                                    "type": "string"
+                                },
+                                "DDCRStatus": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create dpr"
+                    }
+                }
+            }
+        },
+        "/assetapi/dpr/get/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "dpr"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the asset.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get by id"
+                    }
+                }
+            }
+        },
+        "/assetapi/dpr/update": {
+            "channel": "drlchannel",
+            "put": {
+                "tags": [
+                    "dpr"
+                ],
+                "description": "Update dpr",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create dpr",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "ShipperNumber": {
+                                    "type": "string"
+                                },
+                                "ProductList": {
+                                    "type": "string"
+                                },
+                                "TransportMode": {
+                                    "type": "string"
+                                },
+                                "StartedAt": {
+                                    "type": "string"
+                                },
+                                "DeliverAt": {
+                                    "type": "string"
+                                },
+                                "DDCRStatus": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update dpr"
+                    }
+                }
+            }
+        },
+        "/assetapi/dpr/delete": {
+            "channel": "drlchannel",
+            "delete": {
+                "tags": [
+                    "dpr"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the asset.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/assetapi/dpr/history/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "dpr"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the asset.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get history by id"
+                    }
+                }
+            }
+        },
+        "/assetapi/dpr/querystring": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "dpr"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the asset.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/transactionapi/activeCCDR/create": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "activeCCDR"
+                ],
+                "description": "Create activeCCDR",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create activeCCDR",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "ReferenceSOPnumber": {
+                                    "type": "string"
+                                },
+                                "Department": {
+                                    "type": "string"
+                                },
+                                "PickListNumber": {
+                                    "type": "string"
+                                },
+                                "Version": {
+                                    "type": "string"
+                                },
+                                "LegacyDocNum": {
+                                    "type": "string"
+                                },
+                                "GeneralInstructions": {
+                                    "type": "string"
+                                },
+                                "ReferenceProcedure": {
+                                    "type": "string"
+                                },
+                                "ProductPacking": {
+                                    "type": "string"
+                                },
+                                "CrateShiftingActive": {
+                                    "type": "string"
+                                },
+                                "SignedBy": {
+                                    "type": "string"
+                                },
+                                "EffectiveDate": {
+                                    "type": "string"
+                                },
+                                "Destination": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create activeCCDR"
+                    }
+                }
+            }
+        },
+        "/transactionapi/activeCCDR/get/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "activeCCDR"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/transactionapi/activeCCDR/delete": {
+            "channel": "drlchannel",
+            "delete": {
+                "tags": [
+                    "activeCCDR"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/transactionapi/activeCCDR/update": {
+            "channel": "drlchannel",
+            "put": {
+                "tags": [
+                    "activeCCDR"
+                ],
+                "description": "Update Transaction",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create activeCCDR",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "ReferenceSOPnumber": {
+                                    "type": "string"
+                                },
+                                "Department": {
+                                    "type": "string"
+                                },
+                                "PickListNumber": {
+                                    "type": "string"
+                                },
+                                "Version": {
+                                    "type": "string"
+                                },
+                                "LegacyDocNum": {
+                                    "type": "string"
+                                },
+                                "GeneralInstructions": {
+                                    "type": "string"
+                                },
+                                "ReferenceProcedure": {
+                                    "type": "string"
+                                },
+                                "ProductPacking": {
+                                    "type": "string"
+                                },
+                                "CrateShiftingActive": {
+                                    "type": "string"
+                                },
+                                "SignedBy": {
+                                    "type": "string"
+                                },
+                                "EffectiveDate": {
+                                    "type": "string"
+                                },
+                                "Destination": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Transaction"
+                    }
+                }
+            }
+        },
+        "/transactionapi/activeCCDR/history/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "activeCCDR"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/transactionapi/activeCCDR/querystring": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "activeCCDR"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/transactionapi/passiveCCDR/create": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "passiveCCDR"
+                ],
+                "description": "Create passiveCCDR",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create passiveCCDR",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "Department": {
+                                    "type": "string"
+                                },
+                                "PickListNumber": {
+                                    "type": "string"
+                                },
+                                "Unit": {
+                                    "type": "string"
+                                },
+                                "GeneralInstruction": {
+                                    "type": "string"
+                                },
+                                "PackagingOperation": {
+                                    "type": "string"
+                                },
+                                "InnerBoxPacking": {
+                                    "type": "string"
+                                },
+                                "OuterBoxPacking": {
+                                    "type": "string"
+                                },
+                                "ShipmentTracking": {
+                                    "type": "string"
+                                },
+                                "DocumentVerification": {
+                                    "type": "string"
+                                },
+                                "EffectiveDate": {
+                                    "type": "string"
+                                },
+                                "Destination": {
+                                    "type": "string"
+                                },
+                                "Misc": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create passiveCCDR"
+                    }
+                }
+            }
+        },
+        "/transactionapi/passiveCCDR/get/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "passiveCCDR"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/transactionapi/passiveCCDR/delete": {
+            "channel": "drlchannel",
+            "delete": {
+                "tags": [
+                    "passiveCCDR"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/transactionapi/passiveCCDR/update": {
+            "channel": "drlchannel",
+            "put": {
+                "tags": [
+                    "passiveCCDR"
+                ],
+                "description": "Update Transaction",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create passiveCCDR",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "Department": {
+                                    "type": "string"
+                                },
+                                "PickListNumber": {
+                                    "type": "string"
+                                },
+                                "Unit": {
+                                    "type": "string"
+                                },
+                                "GeneralInstruction": {
+                                    "type": "string"
+                                },
+                                "PackagingOperation": {
+                                    "type": "string"
+                                },
+                                "InnerBoxPacking": {
+                                    "type": "string"
+                                },
+                                "OuterBoxPacking": {
+                                    "type": "string"
+                                },
+                                "ShipmentTracking": {
+                                    "type": "string"
+                                },
+                                "DocumentVerification": {
+                                    "type": "string"
+                                },
+                                "EffectiveDate": {
+                                    "type": "string"
+                                },
+                                "Destination": {
+                                    "type": "string"
+                                },
+                                "Misc": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Transaction"
+                    }
+                }
+            }
+        },
+        "/transactionapi/passiveCCDR/history/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "passiveCCDR"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/transactionapi/passiveCCDR/querystring": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "passiveCCDR"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/transactionapi/documents/create": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "documents"
+                ],
+                "description": "Create documents",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create documents",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "DocType": {
+                                    "type": "string"
+                                },
+                                "DocumentHash": {
+                                    "type": "string"
+                                },
+                                "Status": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create documents"
+                    }
+                }
+            }
+        },
+        "/transactionapi/documents/get/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "documents"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/transactionapi/documents/delete": {
+            "channel": "drlchannel",
+            "delete": {
+                "tags": [
+                    "documents"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/transactionapi/documents/update": {
+            "channel": "drlchannel",
+            "put": {
+                "tags": [
+                    "documents"
+                ],
+                "description": "Update Transaction",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create documents",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "DocType": {
+                                    "type": "string"
+                                },
+                                "DocumentHash": {
+                                    "type": "string"
+                                },
+                                "Status": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Transaction"
+                    }
+                }
+            }
+        },
+        "/transactionapi/documents/history/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "documents"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/transactionapi/documents/querystring": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "documents"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/transactionapi/DRLDocs/create": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "DRLDocs"
+                ],
+                "description": "Create DRLDocs",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create DRLDocs",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "ActiveCCDR": {
+                                    "type": "string"
+                                },
+                                "PassiveCCDR": {
+                                    "type": "string"
+                                },
+                                "TaxInvoice": {
+                                    "type": "string"
+                                },
+                                "LRcopy": {
+                                    "type": "string"
+                                },
+                                "SealCodeBeforeDispatch": {
+                                    "type": "string"
+                                },
+                                "SealCodeAfterDelivery": {
+                                    "type": "string"
+                                },
+                                "SignedLRcopy": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create DRLDocs"
+                    }
+                }
+            }
+        },
+        "/transactionapi/DRLDocs/get/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "DRLDocs"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/transactionapi/DRLDocs/delete": {
+            "channel": "drlchannel",
+            "delete": {
+                "tags": [
+                    "DRLDocs"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/transactionapi/DRLDocs/update": {
+            "channel": "drlchannel",
+            "put": {
+                "tags": [
+                    "DRLDocs"
+                ],
+                "description": "Update Transaction",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create DRLDocs",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "DPRNo": {
+                                    "type": "string"
+                                },
+                                "ActiveCCDR": {
+                                    "type": "string"
+                                },
+                                "PassiveCCDR": {
+                                    "type": "string"
+                                },
+                                "TaxInvoice": {
+                                    "type": "string"
+                                },
+                                "LRcopy": {
+                                    "type": "string"
+                                },
+                                "SealCodeBeforeDispatch": {
+                                    "type": "string"
+                                },
+                                "SealCodeAfterDelivery": {
+                                    "type": "string"
+                                },
+                                "SignedLRcopy": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Transaction"
+                    }
+                }
+            }
+        },
+        "/transactionapi/DRLDocs/history/{id}": {
+            "channel": "drlchannel",
+            "get": {
+                "tags": [
+                    "DRLDocs"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/transactionapi/DRLDocs/querystring": {
+            "channel": "drlchannel",
+            "post": {
+                "tags": [
+                    "DRLDocs"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Transaction.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/participantapi/IGCAdmin/create": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "IGCAdmin"
+                ],
+                "description": "Create IGCAdmin",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create IGCAdmin",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "Walletid": {
+                                    "type": "string"
+                                },
+                                "Username": {
+                                    "type": "string"
+                                },
+                                "Password": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create IGCAdmin"
+                    }
+                }
+            }
+        },
+        "/participantapi/IGCAdmin/get/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "IGCAdmin"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/participantapi/IGCAdmin/update": {
+            "channel": [
+                "drlchannel"
+            ],
+            "put": {
+                "tags": [
+                    "IGCAdmin"
+                ],
+                "description": "Update IGCAdmin",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create IGCAdmin",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "Walletid": {
+                                    "type": "string"
+                                },
+                                "Username": {
+                                    "type": "string"
+                                },
+                                "Password": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update IGCAdmin"
+                    }
+                }
+            }
+        },
+        "/participantapi/IGCAdmin/delete": {
+            "channel": [
+                "drlchannel"
+            ],
+            "delete": {
+                "tags": [
+                    "IGCAdmin"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/IGCAdmin/history/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "IGCAdmin"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/participantapi/IGCAdmin/querystring": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "IGCAdmin"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/participantapi/IGCAdmin/enroll": {
+            "post": {
+                "tags": [
+                    "IGCAdmin"
+                ],
+                "description": "Enroll",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Enroll IGCAdmin",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "PIN": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "enroll by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/License/create": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "License"
+                ],
+                "description": "Create License",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create License",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "LicenseId": {
+                                    "type": "string"
+                                },
+                                "LicenseKey": {
+                                    "type": "string"
+                                },
+                                "OrganisationName": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create License"
+                    }
+                }
+            }
+        },
+        "/participantapi/License/get/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "License"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/participantapi/License/update": {
+            "channel": [
+                "drlchannel"
+            ],
+            "put": {
+                "tags": [
+                    "License"
+                ],
+                "description": "Update License",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create License",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "LicenseId": {
+                                    "type": "string"
+                                },
+                                "LicenseKey": {
+                                    "type": "string"
+                                },
+                                "OrganisationName": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update License"
+                    }
+                }
+            }
+        },
+        "/participantapi/License/delete": {
+            "channel": [
+                "drlchannel"
+            ],
+            "delete": {
+                "tags": [
+                    "License"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/License/history/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "License"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/participantapi/License/querystring": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "License"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/participantapi/License/enroll": {
+            "post": {
+                "tags": [
+                    "License"
+                ],
+                "description": "Enroll",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Enroll License",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "PIN": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "enroll by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/Organization/create": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "description": "Create Organization",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Organization",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "BusinessEmail": {
+                                    "type": "string"
+                                },
+                                "LicenseKey": {
+                                    "type": "string"
+                                },
+                                "FirstName": {
+                                    "type": "string"
+                                },
+                                "SurName": {
+                                    "type": "string"
+                                },
+                                "PhoneNumber": {
+                                    "type": "string"
+                                },
+                                "CompanyName": {
+                                    "type": "string"
+                                },
+                                "CompanySize": {
+                                    "type": "string"
+                                },
+                                "Country": {
+                                    "type": "string"
+                                },
+                                "State": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create Organization"
+                    }
+                }
+            }
+        },
+        "/participantapi/Organization/get/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/participantapi/Organization/update": {
+            "channel": [
+                "drlchannel"
+            ],
+            "put": {
+                "tags": [
+                    "Organization"
+                ],
+                "description": "Update Organization",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Organization",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "BusinessEmail": {
+                                    "type": "string"
+                                },
+                                "LicenseKey": {
+                                    "type": "string"
+                                },
+                                "FirstName": {
+                                    "type": "string"
+                                },
+                                "SurName": {
+                                    "type": "string"
+                                },
+                                "PhoneNumber": {
+                                    "type": "string"
+                                },
+                                "CompanyName": {
+                                    "type": "string"
+                                },
+                                "CompanySize": {
+                                    "type": "string"
+                                },
+                                "Country": {
+                                    "type": "string"
+                                },
+                                "State": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Organization"
+                    }
+                }
+            }
+        },
+        "/participantapi/Organization/delete": {
+            "channel": [
+                "drlchannel"
+            ],
+            "delete": {
+                "tags": [
+                    "Organization"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/Organization/history/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/participantapi/Organization/querystring": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/participantapi/Organization/enroll": {
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "description": "Enroll",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Enroll Organization",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "PIN": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "enroll by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/OrgAdmin/create": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "OrgAdmin"
+                ],
+                "description": "Create OrgAdmin",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create OrgAdmin",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "OrganizationId": {
+                                    "type": "string"
+                                },
+                                "BusinessEmail": {
+                                    "type": "string"
+                                },
+                                "Walletid": {
+                                    "type": "string"
+                                },
+                                "Password": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create OrgAdmin"
+                    }
+                }
+            }
+        },
+        "/participantapi/OrgAdmin/get/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "OrgAdmin"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/participantapi/OrgAdmin/update": {
+            "channel": [
+                "drlchannel"
+            ],
+            "put": {
+                "tags": [
+                    "OrgAdmin"
+                ],
+                "description": "Update OrgAdmin",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create OrgAdmin",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "OrganizationId": {
+                                    "type": "string"
+                                },
+                                "BusinessEmail": {
+                                    "type": "string"
+                                },
+                                "Walletid": {
+                                    "type": "string"
+                                },
+                                "Password": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update OrgAdmin"
+                    }
+                }
+            }
+        },
+        "/participantapi/OrgAdmin/delete": {
+            "channel": [
+                "drlchannel"
+            ],
+            "delete": {
+                "tags": [
+                    "OrgAdmin"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/OrgAdmin/history/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "OrgAdmin"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/participantapi/OrgAdmin/querystring": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "OrgAdmin"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/participantapi/OrgAdmin/enroll": {
+            "post": {
+                "tags": [
+                    "OrgAdmin"
+                ],
+                "description": "Enroll",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Enroll OrgAdmin",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "PIN": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "enroll by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/Users/create": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Create Users",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Users",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "Email": {
+                                    "type": "string"
+                                },
+                                "Password": {
+                                    "type": "string"
+                                },
+                                "Role": {
+                                    "type": "string"
+                                },
+                                "Status": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create Users"
+                    }
+                }
+            }
+        },
+        "/participantapi/Users/get/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/participantapi/Users/update": {
+            "channel": [
+                "drlchannel"
+            ],
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Update Users",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Users",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "Email": {
+                                    "type": "string"
+                                },
+                                "Password": {
+                                    "type": "string"
+                                },
+                                "Role": {
+                                    "type": "string"
+                                },
+                                "Status": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Users"
+                    }
+                }
+            }
+        },
+        "/participantapi/Users/delete": {
+            "channel": [
+                "drlchannel"
+            ],
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/Users/history/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/participantapi/Users/querystring": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/participantapi/Users/enroll": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Enroll",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Enroll Users",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "PIN": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "enroll by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/Userprofile/create": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "Userprofile"
+                ],
+                "description": "Create Userprofile",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Userprofile",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "UserId": {
+                                    "type": "string"
+                                },
+                                "FirstName": {
+                                    "type": "string"
+                                },
+                                "LastName": {
+                                    "type": "string"
+                                },
+                                "Email": {
+                                    "type": "string"
+                                },
+                                "PhoneNumber": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create Userprofile"
+                    }
+                }
+            }
+        },
+        "/participantapi/Userprofile/get/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "Userprofile"
+                ],
+                "description": "get",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get"
+                    }
+                }
+            }
+        },
+        "/participantapi/Userprofile/update": {
+            "channel": [
+                "drlchannel"
+            ],
+            "put": {
+                "tags": [
+                    "Userprofile"
+                ],
+                "description": "Update Userprofile",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Userprofile",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "CreatedOn": {
+                                    "type": "string"
+                                },
+                                "CreatedBy": {
+                                    "type": "string"
+                                },
+                                "IsDelete": {
+                                    "type": "boolean"
+                                },
+                                "UserId": {
+                                    "type": "string"
+                                },
+                                "FirstName": {
+                                    "type": "string"
+                                },
+                                "LastName": {
+                                    "type": "string"
+                                },
+                                "Email": {
+                                    "type": "string"
+                                },
+                                "PhoneNumber": {
+                                    "type": "string"
+                                },
+                                "Notes": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Userprofile"
+                    }
+                }
+            }
+        },
+        "/participantapi/Userprofile/delete": {
+            "channel": [
+                "drlchannel"
+            ],
+            "delete": {
+                "tags": [
+                    "Userprofile"
+                ],
+                "description": "delete",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete by id"
+                    }
+                }
+            }
+        },
+        "/participantapi/Userprofile/history/{id}": {
+            "channel": [
+                "drlchannel"
+            ],
+            "get": {
+                "tags": [
+                    "Userprofile"
+                ],
+                "description": "history",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "history"
+                    }
+                }
+            }
+        },
+        "/participantapi/Userprofile/querystring": {
+            "channel": [
+                "drlchannel"
+            ],
+            "post": {
+                "tags": [
+                    "Userprofile"
+                ],
+                "description": "querystring",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "querystring",
+                        "required": true,
+                        "in": "body",
+                        "type": "string",
+                        "description": "The ID for the Participant.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "querystring"
+                    }
+                }
+            }
+        },
+        "/participantapi/Userprofile/enroll": {
+            "post": {
+                "tags": [
+                    "Userprofile"
+                ],
+                "description": "Enroll",
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Enroll Userprofile",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Participant_id": {
+                                    "type": "string"
+                                },
+                                "PIN": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "enroll by id"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}
