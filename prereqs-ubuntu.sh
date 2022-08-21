@@ -67,8 +67,8 @@ export NVM_DIR="${HOME}/.nvm"
 
 # Install node
 echo "# Installing nodeJS"
-nvm install 8.16.1
-nvm use 8.16.1
+nvm install 10.24.1
+nvm use 10.24.1
 
 # Ensure that CA certificates are installed
 sudo apt-get -y install apt-transport-https ca-certificates

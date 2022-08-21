@@ -41,10 +41,11 @@ app.use(cors());
 
 //Use Routes
 // app.use('/api/blockchain', participantAPI);
-app.use('/api/v1', participantAPI);
-app.use('/api/v1', assetAPI);
-app.use('/api/v1', transactionAPI);
-app.use('/api/v1', usermgmt);
+// app.use('/api/v1', participantAPI);
+// app.use('/api/v1', assetAPI);
+// app.use('/api/v1', transactionAPI);
+// app.use('/api/v1', usermgmt);
+app.use('/api', require('./routes'))
 
 
 const swaggerUi = require('swagger-ui-express');
