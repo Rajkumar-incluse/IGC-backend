@@ -9,4 +9,16 @@ var getLogger = function(moduleName) {
 	return logger;
 };
 
+const CHAINCODE_ACTIONS = {
+	CREATE: 'create',
+	UPDATE: 'update',
+	DELETE: 'delete'
+}
+
+const USER_ROLES = {
+	ADMIN: 'admin'
+}
+
 exports.getLogger = getLogger;
+exports.CHAINCODE_ACTIONS = CHAINCODE_ACTIONS
+exports.USER_ROLES = USER_ROLES

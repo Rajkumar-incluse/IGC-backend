@@ -1,13 +1,12 @@
 const router = require('express').Router()
 const moment = require('moment')
-const path = require('path')
-const fs = require('fs')
 
 const invoke = require('../../../app/invoke')
 const { validate, OrganizationValidations } = require('../../../utils/Validators')
-const ccpPath = path.resolve(__dirname, '..', '..', '..', 'network_config.json');
-const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
-const cp = JSON.parse(ccpJSON);
+const { CHAINCODE_ACTIONS, USER_ROLES } = require('../../../utils/helper')
+const { OrganizationModel, UserModel } = require('../../../models')
+const { HandleResponseError, RequestInputError } = require('../../../utils/HandleResponseError')
+const { registerUser } = require('../../../app/registerUser')
 
 let Organizationschema = [
     { "name": "Id", "required": true, "in": "body", "type": "string", "description": "Id", "isEncrypt": false },
@@ -28,25 +27,75 @@ let Organizationschema = [
 ]
 
 router.post('/create', validate(OrganizationValidations), async (req, res) => {
-    let { FirstName, SurName, PhoneNumber, BusinessEmail, CompanyName, CompanySize, Country, State, LicenseKey } = req.body;
+    try {
+        const { FirstName, SurName, PhoneNumber, BusinessEmail, CompanyName, CompanySize, Country, State, LicenseKey } = req.body;
 
-    req.body = {
-        FirstName, SurName, PhoneNumber, BusinessEmail, CompanyName, CompanySize, Country, State, LicenseKey,
-        "Id": "",
-        "Participant_id": "",
-        "CreatedOn": moment(new Date()).format(),
-        "CreatedBy": "",
-        "IsDelete": false,
-        "Notes": ""
-    }
+        // chekcing for license key
+        if (!(["ABC", "XYZ"].some(key => key == LicenseKey))) {
+            throw new RequestInputError({ code: 400, message: "Invalid license key" })
+        }
+        // 0. check uniqueness of organization and user
+        // 1.save to organization collection first
+        const orgData = {
+            companyName: CompanyName,
+            companySize: CompanySize,
+            country: Country,
+            state: State,
+            licenseKey: LicenseKey
+        }
 
+        let organizationResult = await OrganizationModel.create(orgData);
 
-    let message = await invoke.invokeTransaction(cp, 'drlchannel', 'Organization', 'create', req, Organizationschema);
-    if (message && message.status == true) {
-        res.send(message);
-    }
-    else {
-        res.send(message);
+        // 2.save to user collection
+        const userData = {
+            firstName: FirstName,
+            lastName: SurName,
+            businessEmail: BusinessEmail,
+            phoneNumber: PhoneNumber,
+            role: USER_ROLES.ADMIN,
+            organization: organizationResult._id
+        }
+
+        let userResult = await UserModel.create(userData)
+
+        // 3. register user in wallet
+        await registerUser({ OrgMSP: CompanyName, userId: FirstName+" "+SurName })
+ 
+        // 3. generate and send password via email
+
+        // 4. save the obj to blockchain
+        const data = {
+            FirstName, SurName, PhoneNumber, BusinessEmail, CompanyName, CompanySize, Country, State, LicenseKey,
+            "Id": organizationResult._id,
+            "Participant_id": "",
+            "CreatedOn": moment(new Date()).format(),
+            "CreatedBy": "admin",
+            "IsDelete": "false",
+            "Notes": "some notes"
+        }
+
+        let message = await invoke.invokeTransactionV2({
+            metaInfo: { userName: FirstName+" "+SurName, org: CompanyName }, 
+            organizationName: CompanyName,
+            channelName: 'drlchannel',
+            chainCodeName: 'Organization',
+            chainCodeFunctionName: 'create',
+            data,
+            schema: Organizationschema,
+            chainCodeAction: CHAINCODE_ACTIONS.CREATE
+        });
+
+        console.log({ message })
+
+        // if (message && message.status == true) {
+        //     res.send(message);
+        // }
+        // else {
+        //     res.send(message);
+        // }
+        res.status(201).json({...organizationResult._doc, user: { ...userResult._doc }})
+    }catch(err) {
+        HandleResponseError(err, res);
     }
 });
 
