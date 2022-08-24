@@ -1,12 +1,16 @@
 const router = require('express').Router()
 const moment = require('moment')
+const bcrypt = require('bcryptjs')
 
 const invoke = require('../../../app/invoke')
 const { validate, OrganizationValidations } = require('../../../utils/Validators')
-const { CHAINCODE_ACTIONS, USER_ROLES } = require('../../../utils/helper')
+const { CHAINCODE_ACTIONS, USER_ROLES, USER_STATUS } = require('../../../utils/helper')
 const { OrganizationModel, UserModel } = require('../../../models')
-const { HandleResponseError, RequestInputError } = require('../../../utils/HandleResponseError')
+const { HandleResponseError, RequestInputError, ObjectExistsError } = require('../../../utils/HandleResponseError')
 const { registerUser } = require('../../../app/registerUser')
+const { sendMail } = require('../../../utils/Mailer')
+const { SEND_PASSWORD_TEMPLATE } = require('../../../utils/Mailer').EMAIL_TEMPLATES
+
 
 let Organizationschema = [
     { "name": "Id", "required": true, "in": "body", "type": "string", "description": "Id", "isEncrypt": false },
@@ -34,7 +38,13 @@ router.post('/create', validate(OrganizationValidations), async (req, res) => {
         if (!(["ABC", "XYZ"].some(key => key == LicenseKey))) {
             throw new RequestInputError({ code: 400, message: "Invalid license key" })
         }
-        // 0. check uniqueness of organization and user
+
+        let exists = await UserModel.find({ businessEmail: BusinessEmail })
+
+        if(exists.length > 0){
+            throw new ObjectExistsError({ message: "User with this email already exists" })
+        }
+
         // 1.save to organization collection first
         const orgData = {
             companyName: CompanyName,
@@ -47,23 +57,31 @@ router.post('/create', validate(OrganizationValidations), async (req, res) => {
         let organizationResult = await OrganizationModel.create(orgData);
 
         // 2.save to user collection
+        const salt = await bcrypt.genSalt(10)
+        let generatedPassword = "pwd_"+BusinessEmail.split("@")[0]
+        let hashedpassword = await bcrypt.hash(generatedPassword, salt);
+        
         const userData = {
             firstName: FirstName,
             lastName: SurName,
-            businessEmail: BusinessEmail,
+            email: BusinessEmail,
+            password: hashedpassword,
             phoneNumber: PhoneNumber,
             role: USER_ROLES.ADMIN,
+            status: USER_STATUS.ACTIVE,
             organization: organizationResult._id
         }
 
         let userResult = await UserModel.create(userData)
 
-        // 3. register user in wallet
-        await registerUser({ OrgMSP: CompanyName, userId: FirstName+" "+SurName })
- 
-        // 3. generate and send password via email
+        // 3. send password via email
+        let { subject, text } = SEND_PASSWORD_TEMPLATE({ firstName: FirstName, password: generatedPassword })
+        await sendMail({ toEmails: BusinessEmail, subject, text })
 
-        // 4. save the obj to blockchain
+        // 4. IMPORTANT - register user in wallet
+        await registerUser({ OrgMSP: CompanyName, userId: BusinessEmail })
+
+        // 5. save the obj to blockchain
         const data = {
             FirstName, SurName, PhoneNumber, BusinessEmail, CompanyName, CompanySize, Country, State, LicenseKey,
             "Id": organizationResult._id,
@@ -75,7 +93,7 @@ router.post('/create', validate(OrganizationValidations), async (req, res) => {
         }
 
         let message = await invoke.invokeTransactionV2({
-            metaInfo: { userName: FirstName+" "+SurName, org: CompanyName }, 
+            metaInfo: { userName: BusinessEmail, org: CompanyName }, 
             organizationName: CompanyName,
             channelName: 'drlchannel',
             chainCodeName: 'Organization',
@@ -87,12 +105,6 @@ router.post('/create', validate(OrganizationValidations), async (req, res) => {
 
         console.log({ message })
 
-        // if (message && message.status == true) {
-        //     res.send(message);
-        // }
-        // else {
-        //     res.send(message);
-        // }
         res.status(201).json({...organizationResult._doc, user: { ...userResult._doc }})
     }catch(err) {
         HandleResponseError(err, res);

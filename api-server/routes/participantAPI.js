@@ -248,7 +248,18 @@ router.post('/participantapi/OrgAdmin/enroll', passport.authenticate('jwt', { se
     else { res.send(message); }
 });
 
-var Usersschema = [{ "name": "Id", "required": true, "in": "body", "type": "string", "description": "Id", "isEncrypt": false }, { "name": "Participant_id", "required": true, "in": "body", "type": "string", "description": "Participant_id", "isEncrypt": false }, { "name": "CreatedOn", "required": true, "in": "body", "type": "string", "description": "CreatedOn", "isEncrypt": false }, { "name": "CreatedBy", "required": true, "in": "body", "type": "string", "description": "CreatedBy", "isEncrypt": false }, { "name": "IsDelete", "required": true, "in": "body", "type": "boolean", "description": "IsDelete", "isEncrypt": false }, { "name": "Email", "required": true, "in": "body", "type": "string", "description": "Email", "isEncrypt": false }, { "name": "Password", "required": true, "in": "body", "type": "string", "description": "Password", "isEncrypt": false }, { "name": "Role", "required": true, "in": "body", "type": "string", "description": "Role", "isEncrypt": false }, { "name": "Status", "required": true, "in": "body", "type": "string", "description": "Status", "isEncrypt": false }, { "name": "Notes", "required": true, "in": "body", "type": "string", "description": "Notes", "isEncrypt": false }]
+var Usersschema = [
+    { "name": "Id", "required": true, "in": "body", "type": "string", "description": "Id", "isEncrypt": false }, 
+    { "name": "Participant_id", "required": true, "in": "body", "type": "string", "description": "Participant_id", "isEncrypt": false }, 
+    { "name": "CreatedOn", "required": true, "in": "body", "type": "string", "description": "CreatedOn", "isEncrypt": false }, 
+    { "name": "CreatedBy", "required": true, "in": "body", "type": "string", "description": "CreatedBy", "isEncrypt": false }, 
+    { "name": "IsDelete", "required": true, "in": "body", "type": "boolean", "description": "IsDelete", "isEncrypt": false }, 
+    { "name": "Email", "required": true, "in": "body", "type": "string", "description": "Email", "isEncrypt": false }, 
+    { "name": "Password", "required": true, "in": "body", "type": "string", "description": "Password", "isEncrypt": false }, 
+    { "name": "Role", "required": true, "in": "body", "type": "string", "description": "Role", "isEncrypt": false }, 
+    { "name": "Status", "required": true, "in": "body", "type": "string", "description": "Status", "isEncrypt": false }, 
+    { "name": "Notes", "required": true, "in": "body", "type": "string", "description": "Notes", "isEncrypt": false }
+]
 
 
 router.post('/participantapi/Users/create', passport.authenticate('jwt', { session: false }), async (req, res) => {

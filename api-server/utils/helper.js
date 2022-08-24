@@ -16,9 +16,20 @@ const CHAINCODE_ACTIONS = {
 }
 
 const USER_ROLES = {
-	ADMIN: 'admin'
+	ADMIN: 'admin',
+	WAREHOUSE_SUPERVISOR: 'warehouse_supervisor',
+	WAREHOUSE_ASSOCIATE: 'warehouse_associtate',
+	MANAGER: 'manager',
+	CFA: 'cfa',
+	TRANSPORTER: 'transporter'
+}
+
+const USER_STATUS = {
+	ACTIVE: 'active',
+	INACTIVE: 'inactive'
 }
 
 exports.getLogger = getLogger;
 exports.CHAINCODE_ACTIONS = CHAINCODE_ACTIONS
 exports.USER_ROLES = USER_ROLES
+exports.USER_STATUS = USER_STATUS

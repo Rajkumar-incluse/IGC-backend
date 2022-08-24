@@ -1,9 +1,27 @@
+// if there is error in user input (req.body)
 class RequestInputError extends Error{
-    constructor(obj) {
-        super(obj.message);
+    constructor({ code = 400, message }) {
+        super(message);
         this.name = "RequestInputError";
-        this.code = obj.code
+        this.code = code
       }
+}
+
+// if resourcce or object alredy exists
+class ObjectExistsError extends Error{
+    constructor({code = 409, message }) {
+        super(message);
+        this.name = "ObjectExistsError";
+        this.code = code
+      }
+}
+
+class CustomError extends Error{
+    constructor({ code = 422, message }){
+        super(message)
+        this.name = "CustomeError"
+        this.code = code
+    }
 }
 
 exports.HandleResponseError = function(err, res){
@@ -15,3 +33,5 @@ exports.HandleResponseError = function(err, res){
 }
 
 exports.RequestInputError = RequestInputError
+exports.ObjectExistsError = ObjectExistsError
+exports.CustomError = CustomError
