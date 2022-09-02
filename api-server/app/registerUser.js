@@ -15,7 +15,7 @@ exports.registerUser = async ({ OrgMSP, userId }) => {
     // getting config from network_config.json
     let ccp = getCCP(org);
 
-    console.log("CCP value is",ccp)
+    // console.log("CCP value is",ccp)
 
     // getting wallet path
     let walletPath = getWallets(org);

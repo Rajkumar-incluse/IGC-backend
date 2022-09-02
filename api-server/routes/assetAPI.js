@@ -14,7 +14,20 @@ var ObjectID = require('mongodb').ObjectID;
 const passport = require('passport');
 const moment = require('moment')
 
-var dprschema = [{ "name": "Id", "required": true, "in": "body", "type": "string", "description": "Id", "isEncrypt": false }, { "name": "CreatedOn", "required": true, "in": "body", "type": "string", "description": "CreatedOn", "isEncrypt": false }, { "name": "CreatedBy", "required": true, "in": "body", "type": "string", "description": "CreatedBy", "isEncrypt": false }, { "name": "IsDelete", "required": true, "in": "body", "type": "boolean", "description": "IsDelete", "isEncrypt": false }, { "name": "DPRNo", "required": true, "in": "body", "type": "string", "description": "DPRNo", "isEncrypt": false }, { "name": "ShipperNumber", "required": true, "in": "body", "type": "string", "description": "ShipperNumber", "isEncrypt": false }, { "name": "ProductList", "required": true, "in": "body", "type": "string", "description": "ProductList", "isEncrypt": false }, { "name": "TransportMode", "required": true, "in": "body", "type": "string", "description": "TransportMode", "isEncrypt": false }, { "name": "StartedAt", "required": true, "in": "body", "type": "string", "description": "StartedAt", "isEncrypt": false }, { "name": "DeliverAt", "required": true, "in": "body", "type": "string", "description": "DeliverAt", "isEncrypt": false }, { "name": "DDCRStatus", "required": true, "in": "body", "type": "string", "description": "DDCRStatus", "isEncrypt": false }, { "name": "Notes", "required": true, "in": "body", "type": "string", "description": "Notes", "isEncrypt": false }]
+var dprschema = [
+    { "name": "Id", "required": true, "in": "body", "type": "string", "description": "Id", "isEncrypt": false },
+    { "name": "CreatedOn", "required": true, "in": "body", "type": "string", "description": "CreatedOn", "isEncrypt": false },
+    { "name": "CreatedBy", "required": true, "in": "body", "type": "string", "description": "CreatedBy", "isEncrypt": false },
+    { "name": "IsDelete", "required": true, "in": "body", "type": "boolean", "description": "IsDelete", "isEncrypt": false },
+    { "name": "DPRNo", "required": true, "in": "body", "type": "string", "description": "DPRNo", "isEncrypt": false },
+    { "name": "ShipperNumber", "required": true, "in": "body", "type": "string", "description": "ShipperNumber", "isEncrypt": false },
+    { "name": "ProductList", "required": true, "in": "body", "type": "string", "description": "ProductList", "isEncrypt": false },
+    { "name": "TransportMode", "required": true, "in": "body", "type": "string", "description": "TransportMode", "isEncrypt": false },
+    { "name": "StartedAt", "required": true, "in": "body", "type": "string", "description": "StartedAt", "isEncrypt": false },
+    { "name": "DeliverAt", "required": true, "in": "body", "type": "string", "description": "DeliverAt", "isEncrypt": false },
+    { "name": "DDCRStatus", "required": true, "in": "body", "type": "string", "description": "DDCRStatus", "isEncrypt": false },
+    { "name": "Notes", "required": true, "in": "body", "type": "string", "description": "Notes", "isEncrypt": false }
+]
 
 
 router.post('/assetapi/dpr/create', passport.authenticate('jwt', { session: false }), async (req, res) => {

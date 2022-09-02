@@ -25,7 +25,7 @@ var Usersschema = [
     { "name": "Notes", "required": true, "in": "body", "type": "string", "description": "Notes", "isEncrypt": false }
 ]
 
-router.post('/create', passport.authenticate('jwt', { session: false }), async(req, res)=>{
+router.post('/create', async(req, res)=>{
     try{
         let { firstName, lastName, email, phoneNumber, role } = req.body
         let { id, msp, orgId } = req.user
@@ -61,6 +61,20 @@ router.post('/create', passport.authenticate('jwt', { session: false }), async(r
         await registerUser({ OrgMSP: msp, userId: email })
 
         res.status(200).json(userResult)
+    }catch(err){
+        HandleResponseError(err, res)
+    }
+})
+
+router.get('', async(req, res)=>{
+    try{
+        let { orgId } = req.user;
+        let users = await UserModel.find(
+            { $and: [
+                { 'organization': { $exists: true } }, 
+                { 'organization': orgId }
+            ], 'status': 'active' })
+        res.status(200).json(users)
     }catch(err){
         HandleResponseError(err, res)
     }

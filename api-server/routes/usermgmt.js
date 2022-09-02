@@ -117,6 +117,8 @@ router.post('/login', async (req, res) => {
 
   let exiRes = await UserModel.findOne({ email, status: helper.USER_STATUS.ACTIVE }).populate('organization', 'companyName')
 
+  // console.log({ exiRes })
+
   if (exiRes) {
     //Check password
     bcrypt.compare(password, exiRes.password)
@@ -135,7 +137,8 @@ router.post('/login', async (req, res) => {
           jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600000 }, (err, token) => {
             res.json({
               success: true,
-              token: 'Bearer ' + token
+              token: 'Bearer ' + token,
+              role: exiRes.role
             })
           });
         } else {
