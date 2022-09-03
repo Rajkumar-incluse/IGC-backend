@@ -16,10 +16,20 @@ class ObjectExistsError extends Error{
       }
 }
 
+// if resourcce not found
+class ResourceNotFoundError extends Error{
+    constructor({code = 404, message }) {
+        super(message);
+        this.name = "ResourceNotFoundError";
+        this.code = code
+      }
+}
+
+// syntax is correct but cannot process the request
 class CustomError extends Error{
     constructor({ code = 422, message }){
         super(message)
-        this.name = "CustomeError"
+        this.name = "CustomError"
         this.code = code
     }
 }
@@ -28,10 +38,20 @@ exports.HandleResponseError = function(err, res){
     if(err instanceof RequestInputError){
         return res.status(err.code).json({ errors: [{ msg: err.message }] })
     }
+    if(err instanceof CustomError){
+        return res.status(err.code).json({ errors: [{ msg: err.message }] })
+    }
+    if(err instanceof ObjectExistsError){
+        return res.status(err.code).json({ errors: [{ msg: err.message }] })
+    }
+    if(err instanceof ResourceNotFoundError){
+        return res.status(err.code).json({ errors: [{ msg: err.message }] })
+    }
     console.log(err)
     res.status(500).json({ errors: [{ msg: "Internal server error" }] })
 }
 
 exports.RequestInputError = RequestInputError
 exports.ObjectExistsError = ObjectExistsError
+exports.ResourceNotFoundError = ResourceNotFoundError
 exports.CustomError = CustomError

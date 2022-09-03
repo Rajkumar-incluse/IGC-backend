@@ -28,7 +28,7 @@ var Usersschema = [
 router.post('/create', async(req, res)=>{
     try{
         let { firstName, lastName, email, phoneNumber, role } = req.body
-        let { id, msp, orgId } = req.user
+        let { userId, msp, orgId } = req.user
 
         let exists = await UserModel.find({ email: email })
 
@@ -49,7 +49,7 @@ router.post('/create', async(req, res)=>{
             role,
             status: USER_STATUS.ACTIVE,
             organization: orgId,
-            createdBy: id
+            createdBy: userId
         }
 
         let userResult = await UserModel.create(userData)

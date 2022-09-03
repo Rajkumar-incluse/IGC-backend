@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
-
-
 echo "Deleting exisiting container"
 docker rm -f $(docker ps -aq)
 

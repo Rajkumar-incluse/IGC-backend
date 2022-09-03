@@ -126,7 +126,7 @@ router.post('/login', async (req, res) => {
         if (isMatch) {
           //User matched
           const payload = { 
-            id: exiRes._id, 
+            userId: exiRes._id, 
             email: exiRes.email, 
             role: exiRes.role, 
             msp: exiRes.organization.companyName, 
