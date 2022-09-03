@@ -12,7 +12,8 @@ exports.getLogger = function(moduleName) {
 exports.CHAINCODE_ACTIONS = {
 	CREATE: 'create',
 	UPDATE: 'update',
-	DELETE: 'delete'
+	DELETE: 'delete',
+	GET: 'get'
 }
 
 exports.USER_ROLES = {

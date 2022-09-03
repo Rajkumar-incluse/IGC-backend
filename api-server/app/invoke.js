@@ -176,6 +176,10 @@ exports.invokeTransactionV2 = async ({
         arr.push(data)
     }
 
+    if(chainCodeAction == CHAINCODE_ACTIONS.GET){
+        arr.push(data)
+    }
+
     let serializedData = arr.join("^^")
 
     console.log("SerializedData is ", serializedData)
@@ -183,8 +187,12 @@ exports.invokeTransactionV2 = async ({
     const transaction = contract.createTransaction(chainCodeFunctionName);
     const result = await transaction.submit(serializedData);
 
-    console.log("Result:", result.toString())
+    // console.log("Result:", result.toString())
     console.log("TxID:", transaction.getTransactionId());
+
+    if(chainCodeAction == CHAINCODE_ACTIONS.GET){
+        return result.toString();
+    }
 
     let obj = {"Success":true,"Txn ID":transaction.getTransactionId(),"statusCode":200};
 
