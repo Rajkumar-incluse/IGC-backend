@@ -9,6 +9,7 @@ const helper = require('../utils/helper');
 
 const passport = require('passport');
 var moment = require('moment');
+const { UserModel } = require('../models')
 
 var logger = helper.getLogger("Routes");
 
@@ -110,39 +111,43 @@ router.post("/register", async function (req, res) {
 });
 
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
 
-  const username = req.body.username;
-  const password = req.body.password;
+  const { email, password } = req.body
 
-  var mongodb = global.db;
-  var query = { $and: [{ userName: req.body.username }, { status: "Active" }] };
-  //Find the user by username
-  mongodb.collection("users").findOne(query).then(exiRes => {
-    //Check for user
-    if (exiRes) {
-      //Check password
-      bcrypt.compare(password, exiRes.password)
-        .then(isMatch => {
-          if (isMatch) {
-            //User matched
-            const payload = { id: exiRes._id, userName: exiRes.userName, role: exiRes.role, msp: exiRes.org };//Create JWT Payload
-            console.log("payLoad", payload)
-            //Sign Token
-            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600000 }, (err, token) => {
-              res.json({
-                success: true,
-                token: 'Bearer ' + token
-              })
-            });
-          } else {
-            return res.status(200).json({ success: false, message: "Password Incorrect" });
-          }
-        });
-    } else {
-      return res.status(200).json({ success: false, message: "User not found" });
-    }
-  });
+  let exiRes = await UserModel.findOne({ email, status: helper.USER_STATUS.ACTIVE }).populate('organization', 'companyName')
+
+  // console.log({ exiRes })
+
+  if (exiRes) {
+    //Check password
+    bcrypt.compare(password, exiRes.password)
+      .then(isMatch => {
+        if (isMatch) {
+          //User matched
+          const payload = { 
+            userId: exiRes._id, 
+            email: exiRes.email, 
+            role: exiRes.role, 
+            msp: exiRes.organization.companyName, 
+            orgId: exiRes.organization._id
+          };//Create JWT Payload
+
+          //Sign Token
+          jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600000 }, (err, token) => {
+            res.json({
+              success: true,
+              token: 'Bearer ' + token,
+              role: exiRes.role
+            })
+          });
+        } else {
+          return res.status(200).json({ success: false, message: "Password Incorrect" });
+        }
+      });
+  } else {
+    return res.status(200).json({ success: false, message: "User not found" });
+  }
 });
 
 router.post('/userList', passport.authenticate('jwt', { session: false }), (req, res) => {
