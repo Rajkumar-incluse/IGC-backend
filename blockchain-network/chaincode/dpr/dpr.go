@@ -16,27 +16,27 @@ type dprChaincode struct {
 }
 
 type dpr struct {
-	id             string    `json:"id"`
-	dprNo          string    `json:"dprNo"`
-	shipperNo      string    `json:"shipperNo"`
-	from           string    `json:"from"`
-	to             string    `json:"to"`
-	products       string    `json:"products"`
-	documentNo     string    `json:"documentNo"`
-	referenceSOPNo string    `json:"referenceSOPNo"`
-	department     string    `json:"department"`
-	pickingListNo  string    `json:"pickingListNo"`
-	version        string    `json:"version"`
-	legacyDocNo    string    `json:"legacyDocNo"`
-	effectiveDate  time.Time `json:"effectiveDate"`
-	ccdrStatus     string    `json:"ccdrStatus"`
-	transportMode  string    `json:"transportMode"`
-	orgId          string    `json:"orgId"`
-	isDelete       bool      `json:"isDelete"`
-	createdBy      string    `json:"createdBy"`
-	createdOn      time.Time `json:"createdOn"`
-	packingList    string    `json:"packingList"`
-	notes          string    `json:"notes"`
+	Id             string    `json:"id"`
+	DprNo          string    `json:"dprNo"`
+	ShipperNo      string    `json:"shipperNo"`
+	From           string    `json:"from"`
+	To             string    `json:"to"`
+	Products       string    `json:"products"`
+	DocumentNo     string    `json:"documentNo"`
+	ReferenceSOPNo string    `json:"referenceSOPNo"`
+	Department     string    `json:"department"`
+	PickingListNo  string    `json:"pickingListNo"`
+	Version        string    `json:"version"`
+	LegacyDocNo    string    `json:"legacyDocNo"`
+	EffectiveDate  time.Time `json:"effectiveDate"`
+	CcdrStatus     string    `json:"ccdrStatus"`
+	TransportMode  string    `json:"transportMode"`
+	OrgId          string    `json:"orgId"`
+	IsDelete       bool      `json:"isDelete"`
+	CreatedBy      string    `json:"createdBy"`
+	CreatedOn      time.Time `json:"createdOn"`
+	PackingList    string    `json:"packingList"`
+	Notes          string    `json:"notes"`
 }
 
 func (cc *dprChaincode) create(stub shim.ChaincodeStubInterface, arg []string) peer.Response {
@@ -64,27 +64,27 @@ func (cc *dprChaincode) create(stub shim.ChaincodeStubInterface, arg []string) p
 	}
 
 	data := dpr{
-		id:             args[0],
-		dprNo:          args[1],
-		shipperNo:      args[2],
-		from:           args[3],
-		to:             args[4],
-		products:       args[5],
-		documentNo:     args[6],
-		referenceSOPNo: args[7],
-		department:     args[8],
-		pickingListNo:  args[9],
-		version:        args[10],
-		legacyDocNo:    args[11],
-		effectiveDate:  effectiveDate,
-		ccdrStatus:     args[13],
-		transportMode:  args[14],
-		orgId:          args[15],
-		isDelete:       isDeleteBool,
-		createdBy:      args[17],
-		createdOn:      createdOn,
-		packingList:    args[19],
-		notes:          args[20],
+		Id:             args[0],
+		DprNo:          args[1],
+		ShipperNo:      args[2],
+		From:           args[3],
+		To:             args[4],
+		Products:       args[5],
+		DocumentNo:     args[6],
+		ReferenceSOPNo: args[7],
+		Department:     args[8],
+		PickingListNo:  args[9],
+		Version:        args[10],
+		LegacyDocNo:    args[11],
+		EffectiveDate:  effectiveDate,
+		CcdrStatus:     args[13],
+		TransportMode:  args[14],
+		OrgId:          args[15],
+		IsDelete:       isDeleteBool,
+		CreatedBy:      args[17],
+		CreatedOn:      createdOn,
+		PackingList:    args[19],
+		Notes:          args[20],
 	}
 
 	dataBytes, errMarshal := json.Marshal(data)
@@ -141,27 +141,27 @@ func (cc *dprChaincode) update(stub shim.ChaincodeStubInterface, arg []string) p
 	}
 
 	data := dpr{
-		id:             args[0],
-		dprNo:          args[1],
-		shipperNo:      args[2],
-		from:           args[3],
-		to:             args[4],
-		products:       args[5],
-		documentNo:     args[6],
-		referenceSOPNo: args[7],
-		department:     args[8],
-		pickingListNo:  args[9],
-		version:        args[10],
-		legacyDocNo:    args[11],
-		effectiveDate:  effectiveDate,
-		ccdrStatus:     args[13],
-		transportMode:  args[14],
-		orgId:          args[15],
-		isDelete:       isDeleteBool,
-		createdBy:      args[17],
-		createdOn:      createdOn,
-		packingList:    args[19],
-		notes:          args[20],
+		Id:             args[0],
+		DprNo:          args[1],
+		ShipperNo:      args[2],
+		From:           args[3],
+		To:             args[4],
+		Products:       args[5],
+		DocumentNo:     args[6],
+		ReferenceSOPNo: args[7],
+		Department:     args[8],
+		PickingListNo:  args[9],
+		Version:        args[10],
+		LegacyDocNo:    args[11],
+		EffectiveDate:  effectiveDate,
+		CcdrStatus:     args[13],
+		TransportMode:  args[14],
+		OrgId:          args[15],
+		IsDelete:       isDeleteBool,
+		CreatedBy:      args[17],
+		CreatedOn:      createdOn,
+		PackingList:    args[19],
+		Notes:          args[20],
 	}
 
 	dataBytes, errMarshal := json.Marshal(data)
@@ -194,7 +194,7 @@ func (cc *dprChaincode) delete(stub shim.ChaincodeStubInterface, args []string) 
 
 	json.Unmarshal(dataBytes, &data)
 
-	data.isDelete = true
+	data.IsDelete = true
 
 	updateDataBytes, err1 := json.Marshal(data)
 
