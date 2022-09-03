@@ -22,7 +22,7 @@ exports.buildCCPOrg1 = () => {
 	const ccp = JSON.parse(contents);
 
 	console.log(`Loaded the network configuration located at ${ccpPath}`);
-	console.log("ccp value is",ccp)
+	// console.log("ccp value is",ccp)
 	return ccp;
 };
 
@@ -93,7 +93,7 @@ exports.buildCCPOrg5 = () => {
 
 exports.buildWallet = async (Wallets, walletPath) => {
 	// Create a new  wallet : Note that wallet is for managing identities.
-	console.log("wallet path is ",Wallets,walletPath[0])
+	// console.log("wallet path is ",Wallets,walletPath[0])
 	let wallet;
 	if (walletPath) {
 		wallet = await Wallets.newFileSystemWallet(walletPath);
