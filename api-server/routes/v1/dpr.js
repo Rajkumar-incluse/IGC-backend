@@ -3,34 +3,24 @@ const { v4: uuid } = require('uuid')
 const moment = require('moment')
 
 const { HandleResponseError, CustomError, ResourceNotFoundError } = require('../../utils/HandleResponseError')
-const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL } = require('../../utils/helper')
+const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, CHAINCODE_NAMES } = require('../../utils/helper')
 const { MOCK_DPR_DATA } = require('../../utils/mockdata')
 const { invokeTransactionV2 } = require('../../app/invoke')
 
-let dprSchema = [
-    { name: "id" },
-    { name: "dprNo" },
-    { name: "shipperNo" },
-    { name: "from" },
-    { name: "to" },
-    { name: "products" },
-    { name: "documentNo" },
-    { name: "referenceSOPNo" },
-    { name: "department" },
-    { name: "pickingListNo" },
-    { name: "version" },
-    { name: "legacyDocNo" },
-    { name: "effectiveDate" },
-    { name: "ccdrStatus" },
-    { name: "transportMode" },
-    { name: "orgId" },
-    { name: "isDelete" },
-    { name: "createdBy" },
-    { name: "createdOn" },
-    { name: "packingList" },
-    { name: "notes" }
+/**
+documents:[
+    {
+        name: "",
+        documentStatus: {
+            status: "",
+            createdBy: "",
+            createdOn: ""
+        },
+        createdBy: "",
+        createdOn: ""
+    },    
 ]
-
+ */
 /** 
  * API to check whether entered DPR no exist in the SAP backend system info
  */
@@ -60,12 +50,12 @@ router.post('', async (req, res) => {
     try {
         let { userId, email, orgId, msp } = req.user
         let { dprNo, shipperNo, from, to, products, documentNo, referenceSOPNo,
-        department, pickingListNo, version, legacyDocNo, effectiveDate,
-        transportMode, packingList } = req.body
+            department, pickingListNo, version, legacyDocNo, effectiveDate,
+            transportMode, packingList } = req.body
 
         let dprObj = {
             id: uuid(),
-            dprNo, 
+            dprNo,
             shipperNo,
             from,
             to,
@@ -81,7 +71,7 @@ router.post('', async (req, res) => {
             transportMode,
             orgId,
             isDelete: 'false',
-            createdBy: userId, 
+            createdBy: userId,
             createdOn: moment(new Date()).format(),
             packingList: JSON.stringify(packingList),
             notes: ''
@@ -92,14 +82,47 @@ router.post('', async (req, res) => {
             chainCodeAction: CHAINCODE_ACTIONS.CREATE,
             channelName: CHAINCODE_CHANNEL,
             data: dprObj,
-            schema: dprSchema,
             chainCodeFunctionName: 'create',
-            chainCodeName: 'dpr'
+            chainCodeName: CHAINCODE_NAMES.DPR
         })
 
         console.log(message);
 
         res.status(201).json(dprObj)
+
+    } catch (err) {
+        HandleResponseError(err, res)
+    }
+})
+
+/** API to get all dpr | by dprNo | by id */
+router.get('', async (req, res) => {
+    try {
+        let { userId, email, msp, orgId } = req.user
+        let { dprNo, id } = req.query
+
+        let query = { "selector": { "orgId": orgId } }
+
+        if (dprNo && dprNo != '') {
+            query.selector["dprNo"] = dprNo
+        } else if (id && id != '') {
+            query.selector["id"] = id
+        } else {
+            query["fields"] = ['id', 'dprNo', 'ccdrStatus', 'effectiveDate', 'transportMode']
+        }
+
+        let queryString = JSON.stringify(query)
+
+        let dataStr = await invokeTransactionV2({
+            metaInfo: { userName: email, org: msp },
+            chainCodeAction: CHAINCODE_ACTIONS.GET,
+            channelName: CHAINCODE_CHANNEL,
+            data: queryString,
+            chainCodeFunctionName: 'querystring',
+            chainCodeName: CHAINCODE_NAMES.DPR
+        })
+
+        res.status(200).json(JSON.parse(dataStr))
 
     } catch (err) {
         HandleResponseError(err, res)

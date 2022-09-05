@@ -4,31 +4,12 @@ const bcrypt = require('bcryptjs')
 
 const invoke = require('../../../app/invoke')
 const { validate, OrganizationValidations } = require('../../../utils/Validators')
-const { CHAINCODE_ACTIONS, USER_ROLES, USER_STATUS } = require('../../../utils/helper')
+const { CHAINCODE_ACTIONS, USER_ROLES, USER_STATUS, CHAINCODE_NAMES } = require('../../../utils/helper')
 const { OrganizationModel, UserModel } = require('../../../models')
 const { HandleResponseError, RequestInputError, ObjectExistsError } = require('../../../utils/HandleResponseError')
 const { registerUser } = require('../../../app/registerUser')
 const { sendMail } = require('../../../utils/Mailer')
 const { SEND_PASSWORD_TEMPLATE } = require('../../../utils/Mailer').EMAIL_TEMPLATES
-
-
-let Organizationschema = [
-    { "name": "Id", "required": true, "in": "body", "type": "string", "description": "Id", "isEncrypt": false },
-    { "name": "Participant_id", "required": true, "in": "body", "type": "string", "description": "Participant_id", "isEncrypt": false },
-    { "name": "CreatedOn", "required": true, "in": "body", "type": "string", "description": "CreatedOn", "isEncrypt": false },
-    { "name": "CreatedBy", "required": true, "in": "body", "type": "string", "description": "CreatedBy", "isEncrypt": false },
-    { "name": "IsDelete", "required": true, "in": "body", "type": "boolean", "description": "IsDelete", "isEncrypt": false },
-    { "name": "BusinessEmail", "required": true, "in": "body", "type": "string", "description": "BusinessEmail", "isEncrypt": false },
-    { "name": "LicenseKey", "required": true, "in": "body", "type": "string", "description": "LicenseKey", "isEncrypt": false },
-    { "name": "FirstName", "required": true, "in": "body", "type": "string", "description": "FirstName", "isEncrypt": false },
-    { "name": "SurName", "required": true, "in": "body", "type": "string", "description": "SurName", "isEncrypt": false },
-    { "name": "PhoneNumber", "required": true, "in": "body", "type": "string", "description": "PhoneNumber", "isEncrypt": false },
-    { "name": "CompanyName", "required": true, "in": "body", "type": "string", "description": "CompanyName", "isEncrypt": false },
-    { "name": "CompanySize", "required": true, "in": "body", "type": "string", "description": "CompanySize", "isEncrypt": false },
-    { "name": "Country", "required": true, "in": "body", "type": "string", "description": "Country", "isEncrypt": false },
-    { "name": "State", "required": true, "in": "body", "type": "string", "description": "State", "isEncrypt": false },
-    { "name": "Notes", "required": true, "in": "body", "type": "string", "description": "Notes", "isEncrypt": false }
-]
 
 router.post('/create', validate(OrganizationValidations), async (req, res) => {
     try {
@@ -96,10 +77,9 @@ router.post('/create', validate(OrganizationValidations), async (req, res) => {
             metaInfo: { userName: BusinessEmail, org: CompanyName }, 
             organizationName: CompanyName,
             channelName: 'drlchannel',
-            chainCodeName: 'Organization',
+            chainCodeName: CHAINCODE_NAMES.ORGANIZATION,
             chainCodeFunctionName: 'create',
             data,
-            schema: Organizationschema,
             chainCodeAction: CHAINCODE_ACTIONS.CREATE
         });
 

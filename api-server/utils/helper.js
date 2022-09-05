@@ -2,6 +2,8 @@
 var log4js = require('log4js');
 var logger = log4js.getLogger('Helper');
 logger.level = 'DEBUG';
+const { v4: uuid } = require('uuid')
+const moment = require('moment')
 
 exports.getLogger = function(moduleName) {
 	var logger = log4js.getLogger(moduleName);
@@ -9,10 +11,17 @@ exports.getLogger = function(moduleName) {
 	return logger;
 };
 
+exports.generateId = function(){
+	return uuid()
+}
+
+exports.getNow = ()=> moment(new Date()).format()
+
 exports.CHAINCODE_ACTIONS = {
 	CREATE: 'create',
 	UPDATE: 'update',
-	DELETE: 'delete'
+	DELETE: 'delete',
+	GET: 'get'
 }
 
 exports.USER_ROLES = {
@@ -34,6 +43,12 @@ exports.CCDR_STATUS = {
 	IN_PROGRESS: 'in-progress',
 	COMPLETED: 'completed',
 	REJECTED: 'rejected'
+}
+
+exports.CHAINCODE_NAMES = {
+	ORGANIZATION: 'Organization',
+	DPR: 'dpr',
+	CCDR: 'CCDR'	
 }
 
 exports.CHAINCODE_CHANNEL = "drlchannel"

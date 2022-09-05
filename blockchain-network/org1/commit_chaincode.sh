@@ -1,6 +1,7 @@
 #!/bin/bash
             
 docker exec cli-org1 scripts/commit-dpr.sh
+docker exec cli-org1 scripts/commit-CCDR.sh
 docker exec cli-org1 scripts/commit-activeCCDR.sh
 docker exec cli-org1 scripts/commit-passiveCCDR.sh
 docker exec cli-org1 scripts/commit-documents.sh

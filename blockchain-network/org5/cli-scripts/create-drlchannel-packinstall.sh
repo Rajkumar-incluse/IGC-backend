@@ -8,6 +8,14 @@ popd
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
 peer lifecycle chaincode package dpr.tar.gz --path /opt/gopath/src/github.com/chaincode/dpr/ --lang golang --label dpr_1.0
 
+echo "************ Package CCDR chaincode **********" 
+pushd /opt/gopath/src/github.com/chaincode/CCDR/
+GO111MODULE=on go mod vendor
+popd
+
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
+peer lifecycle chaincode package CCDR.tar.gz --path /opt/gopath/src/github.com/chaincode/CCDR/ --lang golang --label CCDR_1.0
+
 echo "************ Package activeCCDR chaincode **********" 
 pushd /opt/gopath/src/github.com/chaincode/activeCCDR/
 GO111MODULE=on go mod vendor
@@ -91,6 +99,10 @@ peer lifecycle chaincode package Userprofile.tar.gz --path /opt/gopath/src/githu
 echo "***************** Install dpr chaincode ***************"
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
 peer lifecycle chaincode install dpr.tar.gz
+
+echo "***************** Install CCDR chaincode ***************"
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
+peer lifecycle chaincode install CCDR.tar.gz
 
 echo "***************** Install activeCCDR chaincode ***************"
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 

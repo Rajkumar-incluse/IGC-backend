@@ -138,7 +138,9 @@ router.post('/login', async (req, res) => {
             res.json({
               success: true,
               token: 'Bearer ' + token,
-              role: exiRes.role
+              role: exiRes.role,
+              firstName: exiRes.firstName,
+              lastName: exiRes.lastName
             })
           });
         } else {
