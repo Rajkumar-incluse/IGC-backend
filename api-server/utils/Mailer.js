@@ -28,6 +28,7 @@ async function main({ toEmails, subject, text }) {
 }
 
 exports.sendMail = async ({ toEmails, subject, text })=>{
+    return true
     // to handle array of emails or single email string
     toEmails = typeof toEmails == "object" ? toEmails.join(',') : toEmails
 

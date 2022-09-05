@@ -14,7 +14,22 @@ echo "***************** ApproveforMyOrg dpr chaincode ***************"
 echo "***************** checkCommitReadiness dpr chaincode ***************"
                     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
                     peer lifecycle chaincode checkcommitreadiness --channelID drlchannel --name dpr --version 1.0 --sequence 1    --signature-policy "OR('org1MSP.peer','org2MSP.peer','org3MSP.peer','org4MSP.peer','org5MSP.peer' )"
+
+echo "***************** queryinstalled CCDR chaincode ***************"
+                    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
+                    peer lifecycle chaincode queryinstalled >&log.txt
+                    { set +x; } 2>/dev/null
+                    cat log.txt
+                    PACKAGE_ID=$(sed -n "/CCDR_1.0/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
                     
+echo "***************** ApproveforMyOrg CCDR chaincode ***************"
+                    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
+                    peer lifecycle chaincode approveformyorg -o orderer1.orderer.drlnet.com:7050 --ordererTLSHostnameOverride orderer1.orderer.drlnet.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/orderer/tls/tlsca.orderer.drlnet.com-cert.pem --channelID drlchannel --name CCDR --version 1.0 --package-id $PACKAGE_ID --sequence 1    --signature-policy "OR('org1MSP.peer','org2MSP.peer','org3MSP.peer','org4MSP.peer','org5MSP.peer' )"
+                    
+echo "***************** checkCommitReadiness CCDR chaincode ***************"
+                    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
+                    peer lifecycle chaincode checkcommitreadiness --channelID drlchannel --name CCDR --version 1.0 --sequence 1    --signature-policy "OR('org1MSP.peer','org2MSP.peer','org3MSP.peer','org4MSP.peer','org5MSP.peer' )"
+
 echo "***************** queryinstalled activeCCDR chaincode ***************"
                     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/users/Admin@org5.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org5.drlnet.com:7051 CORE_PEER_LOCALMSPID="org5MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org5.drlnet.com/peers/peer0.org5.drlnet.com/tls/ca.crt 
                     peer lifecycle chaincode queryinstalled >&log.txt

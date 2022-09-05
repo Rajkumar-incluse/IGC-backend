@@ -59,7 +59,11 @@ router.post('/create', async(req, res)=>{
 
         // registering in wallet
         await registerUser({ OrgMSP: msp, userId: email })
+        
+        userResult = { ...userResult._doc }
 
+        delete userResult['password']
+        
         res.status(200).json(userResult)
     }catch(err){
         HandleResponseError(err, res)

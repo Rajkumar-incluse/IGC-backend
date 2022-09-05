@@ -3,34 +3,24 @@ const { v4: uuid } = require('uuid')
 const moment = require('moment')
 
 const { HandleResponseError, CustomError, ResourceNotFoundError } = require('../../utils/HandleResponseError')
-const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL } = require('../../utils/helper')
+const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, CHAINCODE_NAMES } = require('../../utils/helper')
 const { MOCK_DPR_DATA } = require('../../utils/mockdata')
 const { invokeTransactionV2 } = require('../../app/invoke')
 
-let dprSchema = [
-    { name: "id" },
-    { name: "dprNo" },
-    { name: "shipperNo" },
-    { name: "from" },
-    { name: "to" },
-    { name: "products" },
-    { name: "documentNo" },
-    { name: "referenceSOPNo" },
-    { name: "department" },
-    { name: "pickingListNo" },
-    { name: "version" },
-    { name: "legacyDocNo" },
-    { name: "effectiveDate" },
-    { name: "ccdrStatus" },
-    { name: "transportMode" },
-    { name: "orgId" },
-    { name: "isDelete" },
-    { name: "createdBy" },
-    { name: "createdOn" },
-    { name: "packingList" },
-    { name: "notes" }
+/**
+documents:[
+    {
+        name: "",
+        documentStatus: {
+            status: "",
+            createdBy: "",
+            createdOn: ""
+        },
+        createdBy: "",
+        createdOn: ""
+    },    
 ]
-
+ */
 /** 
  * API to check whether entered DPR no exist in the SAP backend system info
  */
@@ -92,9 +82,8 @@ router.post('', async (req, res) => {
             chainCodeAction: CHAINCODE_ACTIONS.CREATE,
             channelName: CHAINCODE_CHANNEL,
             data: dprObj,
-            schema: dprSchema,
             chainCodeFunctionName: 'create',
-            chainCodeName: 'dpr'
+            chainCodeName: CHAINCODE_NAMES.DPR
         })
 
         console.log(message);
@@ -130,7 +119,7 @@ router.get('', async (req, res) => {
             channelName: CHAINCODE_CHANNEL,
             data: queryString,
             chainCodeFunctionName: 'querystring',
-            chainCodeName: 'dpr'
+            chainCodeName: CHAINCODE_NAMES.DPR
         })
 
         res.status(200).json(JSON.parse(dataStr))
