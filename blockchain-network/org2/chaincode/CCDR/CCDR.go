@@ -33,7 +33,7 @@ func (cc *CCDRChaincode) create(stub shim.ChaincodeStubInterface, arg []string) 
 	args := strings.Split(arg[0], "^^")
 
 	if len(args) != 10 {
-		return shim.Error("Incorrect number arguments. Expecting 18")
+		return shim.Error("CCDR : Incorrect number arguments. Expecting 10")
 	}
 	createdOn, err1 := time.Parse(time.RFC3339, args[7])
 
@@ -43,7 +43,7 @@ func (cc *CCDRChaincode) create(stub shim.ChaincodeStubInterface, arg []string) 
 	isDelete, err2 := strconv.ParseBool(args[5])
 
 	if err2 != nil {
-		return shim.Error("Error converting string to bool: " + err2.Error())
+		return shim.Error("CCDR : Error converting string to bool: " + err2.Error())
 	}
 	data := CCDR{
 		Id:            args[0],
@@ -61,13 +61,13 @@ func (cc *CCDRChaincode) create(stub shim.ChaincodeStubInterface, arg []string) 
 	dataBytes, errMarshal := json.Marshal(data)
 
 	if errMarshal != nil {
-		return shim.Error("Error converting data as bytes: " + errMarshal.Error())
+		return shim.Error("CCDR : Error converting data as bytes: " + errMarshal.Error())
 	}
 
 	errPut := stub.PutState(args[0], dataBytes)
 
 	if errPut != nil {
-		return shim.Error("Error putting the state: " + errPut.Error())
+		return shim.Error("CCDR : Error putting the state: " + errPut.Error())
 	}
 
 	return shim.Success(nil)
@@ -76,13 +76,13 @@ func (cc *CCDRChaincode) create(stub shim.ChaincodeStubInterface, arg []string) 
 func (cc *CCDRChaincode) get(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
 	if len(args) != 1 {
-		return shim.Error("Incorrect number arguments. Expecting 1")
+		return shim.Error("CCDR : Incorrect number arguments. Expecting 1")
 	}
 
 	stateBytes, err := stub.GetState(args[0])
 
 	if err != nil {
-		return shim.Error("Error getting the state: " + err.Error())
+		return shim.Error("CCDR : Error getting the state: " + err.Error())
 	}
 
 	return shim.Success(stateBytes)
@@ -90,13 +90,13 @@ func (cc *CCDRChaincode) get(stub shim.ChaincodeStubInterface, args []string) pe
 func (cc *CCDRChaincode) delete(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
 	if len(args) != 1 {
-		return shim.Error("Incorrect number arguments. Expecting 1")
+		return shim.Error("CCDR : Incorrect number arguments. Expecting 1")
 	}
 
 	dataBytes, err := stub.GetState(args[0])
 
 	if err != nil {
-		return shim.Error("Error getting the state: " + err.Error())
+		return shim.Error("CCDR : Error getting the state: " + err.Error())
 	}
 
 	data := CCDR{}
@@ -108,13 +108,13 @@ func (cc *CCDRChaincode) delete(stub shim.ChaincodeStubInterface, args []string)
 	updateDataBytes, err1 := json.Marshal(data)
 
 	if err1 != nil {
-		return shim.Error("Error converting data as bytes: " + err1.Error())
+		return shim.Error("CCDR : Error converting data as bytes: " + err1.Error())
 	}
 
 	err2 := stub.PutState(args[0], updateDataBytes)
 
 	if err2 != nil {
-		return shim.Error("Error putting the data state: " + err2.Error())
+		return shim.Error("CCDR : Error putting the data state: " + err2.Error())
 	}
 
 	return shim.Success(nil)
@@ -124,17 +124,17 @@ func (cc *CCDRChaincode) update(stub shim.ChaincodeStubInterface, arg []string) 
 	args := strings.Split(arg[0], "^^")
 
 	if len(args) != 10 {
-		return shim.Error("Incorrect number arguments. Expecting 18")
+		return shim.Error("CCDR : Incorrect number arguments. Expecting 18")
 	}
 	createdOn, err1 := time.Parse(time.RFC3339, args[7])
 
 	if err1 != nil {
-		return shim.Error("Error converting string to date: " + err1.Error())
+		return shim.Error("CCDR : Error converting string to date: " + err1.Error())
 	}
 	isDelete, err2 := strconv.ParseBool(args[5])
 
 	if err2 != nil {
-		return shim.Error("Error converting string to bool: " + err2.Error())
+		return shim.Error("CCDR : Error converting string to bool: " + err2.Error())
 	}
 	data := CCDR{
 		Id:            args[0],
@@ -152,13 +152,13 @@ func (cc *CCDRChaincode) update(stub shim.ChaincodeStubInterface, arg []string) 
 	dataBytes, errMarshal := json.Marshal(data)
 
 	if errMarshal != nil {
-		return shim.Error("Error converting data as bytes: " + errMarshal.Error())
+		return shim.Error("CCDR : Error converting data as bytes: " + errMarshal.Error())
 	}
 
 	errPut := stub.PutState(args[0], dataBytes)
 
 	if errPut != nil {
-		return shim.Error("Error putting the data state: " + errPut.Error())
+		return shim.Error("CCDR : Error putting the data state: " + errPut.Error())
 	}
 
 	return shim.Success(nil)
@@ -167,13 +167,13 @@ func (cc *CCDRChaincode) update(stub shim.ChaincodeStubInterface, arg []string) 
 func (cc *CCDRChaincode) history(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
 	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
+		return shim.Error("CCDR : Incorrect number of arguments. Expecting 1")
 	}
 
 	queryResult, err := stub.GetHistoryForKey(args[0])
 
 	if err != nil {
-		return shim.Error("Error getting history results: " + err.Error())
+		return shim.Error("CCDR : Error getting history results: " + err.Error())
 	}
 
 	var buffer bytes.Buffer
@@ -202,13 +202,13 @@ func (cc *CCDRChaincode) history(stub shim.ChaincodeStubInterface, args []string
 func (cc *CCDRChaincode) querystring(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
 	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
+		return shim.Error("CCDR : Incorrect number of arguments. Expecting 1")
 	}
 
 	queryResult, err := stub.GetQueryResult(args[0])
 
 	if err != nil {
-		return shim.Error("Error getting query string results: " + err.Error())
+		return shim.Error("CCDR : Error getting query string results: " + err.Error())
 	}
 
 	var buffer bytes.Buffer
@@ -255,7 +255,7 @@ func (cc *CCDRChaincode) Invoke(stub shim.ChaincodeStubInterface) peer.Response 
 		return cc.querystring(stub, args)
 	}
 
-	return shim.Error("Invalid invoke function name")
+	return shim.Error("CCDR : Invalid invoke function name")
 }
 
 func main() {
@@ -266,6 +266,6 @@ func main() {
 
 	err := shim.Start(new(CCDRChaincode))
 	if err != nil {
-		fmt.Printf("Error starting BioMetric chaincode: %s", err)
+		fmt.Printf("CCDR : Error starting BioMetric chaincode: %s", err)
 	}
 }
