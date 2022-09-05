@@ -4,6 +4,40 @@ const { invokeTransactionV2 } = require('../../app/invoke')
 const { HandleResponseError } = require('../../utils/HandleResponseError')
 const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, generateId, getNow, CHAINCODE_NAMES } = require('../../utils/helper')
 
+/** function to update CCDR status */
+const updateCCDRStatus = async ({ email, orgId, msp, dprNo, dprId, ccdrStatus})=>{
+    let query = { "selector": { "orgId": orgId, dprNo, id: dprId } }
+        
+    let queryString = JSON.stringify(query)
+    
+    let dprStr = await invokeTransactionV2({
+        metaInfo: { userName: email, org: msp },
+        chainCodeAction: CHAINCODE_ACTIONS.GET,
+        channelName: CHAINCODE_CHANNEL,
+        data: queryString,
+        chainCodeFunctionName: 'querystring',
+        chainCodeName: CHAINCODE_NAMES.DPR
+    })
+
+    let dprObj = JSON.parse(dprStr)[0]
+
+    console.log(dprObj)
+
+    dprObj['ccdrStatus'] = ccdrStatus
+    dprObj.isDelete = dprObj.isDelete.toString()
+
+    let updateMessage = await invokeTransactionV2({
+        metaInfo: { userName: email, org: msp },
+        chainCodeAction: CHAINCODE_ACTIONS.CREATE,
+        channelName: CHAINCODE_CHANNEL,
+        data: dprObj,
+        chainCodeFunctionName: 'update',
+        chainCodeName: CHAINCODE_NAMES.DPR
+    })
+
+    return dprObj
+}
+
 /** API to create DPR */
 router.get('', async (req, res)=>{
     try{
@@ -66,39 +100,25 @@ router.post('', async (req, res) => {
 
         console.log("Updating ccdr status")
 
-        // TODO to make dpr's ccdr status to in-progress
-        let query = { "selector": { "orgId": orgId, dprNo, id: dprId } }
-        
-        let queryString = JSON.stringify(query)
-        
-        let dprStr = await invokeTransactionV2({
-            metaInfo: { userName: email, org: msp },
-            chainCodeAction: CHAINCODE_ACTIONS.GET,
-            channelName: CHAINCODE_CHANNEL,
-            data: queryString,
-            chainCodeFunctionName: 'querystring',
-            chainCodeName: CHAINCODE_NAMES.DPR
-        })
-
-        let dprObj = JSON.parse(dprStr)[0]
-
-        console.log(dprObj)
-
-        dprObj['ccdrStatus'] = CCDR_STATUS.IN_PROGRESS
-        dprObj.isDelete = dprObj.isDelete.toString()
-
-        let updateMessage = await invokeTransactionV2({
-            metaInfo: { userName: email, org: msp },
-            chainCodeAction: CHAINCODE_ACTIONS.CREATE,
-            channelName: CHAINCODE_CHANNEL,
-            data: dprObj,
-            chainCodeFunctionName: 'update',
-            chainCodeName: CHAINCODE_NAMES.DPR
-        })
+        let dprObj = await updateCCDRStatus({ email, orgId, msp, dprNo, dprId, ccdrStatus: CCDR_STATUS.IN_PROGRESS })
 
         res.status(200).json(ccdrObj)
 
     } catch (err) {
+        HandleResponseError(err, res)
+    }
+})
+
+/** API to update ccdr status */
+router.put('/status', async (req, res)=>{
+    try{
+        let { email, orgId, msp } = req.user
+        let { ccdrStatus, dprNo, dprId } = req.body
+        
+        let dprObj = await updateCCDRStatus({ email, orgId, msp, dprNo, dprId, ccdrStatus })
+
+        res.status(200).json(dprObj)
+    }catch(err){
         HandleResponseError(err, res)
     }
 })
