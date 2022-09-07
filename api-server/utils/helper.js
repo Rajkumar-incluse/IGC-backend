@@ -51,4 +51,10 @@ exports.CHAINCODE_NAMES = {
 	CCDR: 'CCDR'	
 }
 
+exports.DOCUMENT_STATUS = {
+	UPLOADED: 'uploaded',
+	REJECTED: 'rejected',
+	ACCEPTED: 'accepted'
+}
+
 exports.CHAINCODE_CHANNEL = "drlchannel"

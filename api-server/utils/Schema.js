@@ -40,7 +40,8 @@ const DPR_SCHEMA = [
     { name: "createdBy" },
     { name: "createdOn" },
     { name: "packingList" },
-    { name: "notes" }
+    { name: "notes" },
+    { name: "documents" }
 ]
 
 const CCDR_SCHEMA = [

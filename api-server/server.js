@@ -49,6 +49,8 @@ app.use(cors());
 // app.use('/api/v1', transactionAPI);
 app.use('/api/v1', usermgmt);
 app.use('/api', require('./routes'))
+app.use('/document', express.static('uploads'))
+
 
 
 const swaggerUi = require('swagger-ui-express');

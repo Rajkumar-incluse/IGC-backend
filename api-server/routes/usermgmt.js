@@ -137,6 +137,7 @@ router.post('/login', async (req, res) => {
           jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600000 }, (err, token) => {
             res.json({
               success: true,
+              userId: exiRes._id,
               token: 'Bearer ' + token,
               role: exiRes.role,
               firstName: exiRes.firstName,

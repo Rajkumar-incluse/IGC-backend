@@ -37,13 +37,14 @@ type dpr struct {
 	CreatedOn      time.Time `json:"createdOn"`
 	PackingList    string    `json:"packingList"`
 	Notes          string    `json:"notes"`
+	Documents      string    `json:"documents"`
 }
 
 func (cc *dprChaincode) create(stub shim.ChaincodeStubInterface, arg []string) peer.Response {
 
 	args := strings.Split(arg[0], "^^")
 
-	if len(args) != 21 {
+	if len(args) != 22 {
 		return shim.Error("Incorrect number arguments. Expecting 20")
 	}
 	createdOn, err1 := time.Parse(time.RFC3339, args[18])
@@ -85,6 +86,7 @@ func (cc *dprChaincode) create(stub shim.ChaincodeStubInterface, arg []string) p
 		CreatedOn:      createdOn,
 		PackingList:    args[19],
 		Notes:          args[20],
+		Documents:      args[21],
 	}
 
 	dataBytes, errMarshal := json.Marshal(data)
@@ -120,7 +122,7 @@ func (cc *dprChaincode) update(stub shim.ChaincodeStubInterface, arg []string) p
 
 	args := strings.Split(arg[0], "^^")
 
-	if len(args) != 21 {
+	if len(args) != 22 {
 		return shim.Error("Incorrect number arguments. Expecting 20")
 	}
 	createdOn, err1 := time.Parse(time.RFC3339, args[18])
@@ -162,6 +164,7 @@ func (cc *dprChaincode) update(stub shim.ChaincodeStubInterface, arg []string) p
 		CreatedOn:      createdOn,
 		PackingList:    args[19],
 		Notes:          args[20],
+		Documents:      args[21],
 	}
 
 	dataBytes, errMarshal := json.Marshal(data)
