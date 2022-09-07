@@ -3,7 +3,7 @@ const { v4: uuid } = require('uuid')
 const moment = require('moment')
 
 const { HandleResponseError, CustomError, ResourceNotFoundError } = require('../../utils/HandleResponseError')
-const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, CHAINCODE_NAMES } = require('../../utils/helper')
+const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, CHAINCODE_NAMES, generateId } = require('../../utils/helper')
 const { MOCK_DPR_DATA } = require('../../utils/mockdata')
 const { invokeTransactionV2 } = require('../../app/invoke')
 
@@ -54,7 +54,7 @@ router.post('', async (req, res) => {
             transportMode, packingList } = req.body
 
         let dprObj = {
-            id: uuid(),
+            id: generateId(),
             dprNo,
             shipperNo,
             from,
@@ -74,7 +74,8 @@ router.post('', async (req, res) => {
             createdBy: userId,
             createdOn: moment(new Date()).format(),
             packingList: JSON.stringify(packingList),
-            notes: ''
+            notes: '',
+            documents: JSON.stringify([])
         }
 
         let message = await invokeTransactionV2({
