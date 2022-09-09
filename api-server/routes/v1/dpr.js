@@ -1,9 +1,7 @@
 const router = require('express').Router()
-const { v4: uuid } = require('uuid')
-const moment = require('moment')
 
 const { HandleResponseError, CustomError, ResourceNotFoundError } = require('../../utils/HandleResponseError')
-const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, CHAINCODE_NAMES, generateId } = require('../../utils/helper')
+const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, CHAINCODE_NAMES, generateId, getNow } = require('../../utils/helper')
 const { MOCK_DPR_DATA } = require('../../utils/mockdata')
 const { invokeTransactionV2 } = require('../../app/invoke')
 
@@ -50,7 +48,7 @@ router.post('', async (req, res) => {
     try {
         let { userId, email, orgId, msp } = req.user
         let { dprNo, shipperNo, from, to, products, documentNo, referenceSOPNo,
-            department, pickingListNo, version, legacyDocNo, effectiveDate,
+            department, pickingListNo, version, legacyDocNo,
             transportMode, packingList } = req.body
 
         let dprObj = {
@@ -66,16 +64,18 @@ router.post('', async (req, res) => {
             pickingListNo,
             version,
             legacyDocNo,
-            effectiveDate: moment(new Date()).format(),
-            ccdrStatus: CCDR_STATUS.NOT_STARTED,
+            effectiveDate: getNow(),
+            ccdrStatus: JSON.stringify({ status: CCDR_STATUS.NOT_STARTED, createdBy: userId, createdOn: getNow() }),
             transportMode,
             orgId,
             isDelete: 'false',
             createdBy: userId,
-            createdOn: moment(new Date()).format(),
+            createdOn: getNow(),
             packingList: JSON.stringify(packingList),
             notes: '',
-            documents: JSON.stringify([])
+            documents: JSON.stringify([]),
+            startDate: getNow(),
+            endDate: getNow()
         }
 
         let message = await invokeTransactionV2({
@@ -104,12 +104,11 @@ router.get('', async (req, res) => {
 
         let query = { "selector": { "orgId": orgId } }
 
-        if (dprNo && dprNo != '') {
-            query.selector["dprNo"] = dprNo
-        } else if (id && id != '') {
-            query.selector["id"] = id
-        } else {
-            query["fields"] = ['id', 'dprNo', 'ccdrStatus', 'effectiveDate', 'transportMode']
+        if (dprNo && dprNo != '') { query.selector["dprNo"] = dprNo }
+        if (id && id != '') { query.selector["id"] = id }
+
+        if(!(dprNo && dprNo != '') && !(id && id != '')){
+            query["fields"] = ['id', 'dprNo', 'ccdrStatus', 'effectiveDate', 'transportMode', 'startDate', 'endDate']
         }
 
         let queryString = JSON.stringify(query)

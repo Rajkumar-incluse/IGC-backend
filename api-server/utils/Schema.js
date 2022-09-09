@@ -41,7 +41,9 @@ const DPR_SCHEMA = [
     { name: "createdOn" },
     { name: "packingList" },
     { name: "notes" },
-    { name: "documents" }
+    { name: "documents" },
+    { name: "startDate" },
+    { name: "endDate" }
 ]
 
 const CCDR_SCHEMA = [

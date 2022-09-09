@@ -5,7 +5,7 @@ const { HandleResponseError } = require('../../utils/HandleResponseError')
 const { CCDR_STATUS, CHAINCODE_ACTIONS, CHAINCODE_CHANNEL, generateId, getNow, CHAINCODE_NAMES } = require('../../utils/helper')
 
 /** function to update CCDR status */
-const updateCCDRStatus = async ({ email, orgId, msp, dprNo, dprId, ccdrStatus})=>{
+const updateCCDRStatus = async ({ userId, email, orgId, msp, dprNo, dprId, ccdrStatus})=>{
     let query = { "selector": { "orgId": orgId, dprNo, id: dprId } }
         
     let queryString = JSON.stringify(query)
@@ -23,7 +23,7 @@ const updateCCDRStatus = async ({ email, orgId, msp, dprNo, dprId, ccdrStatus})=
 
     console.log(dprObj)
 
-    dprObj['ccdrStatus'] = ccdrStatus
+    dprObj['ccdrStatus'] = JSON.stringify({ status: ccdrStatus, createdBy: userId, createdOn: getNow() })
     dprObj.isDelete = dprObj.isDelete.toString()
 
     let updateMessage = await invokeTransactionV2({
@@ -38,7 +38,7 @@ const updateCCDRStatus = async ({ email, orgId, msp, dprNo, dprId, ccdrStatus})=
     return dprObj
 }
 
-/** API to create DPR */
+/** API to get CCDR by dpr no/id */
 router.get('', async (req, res)=>{
     try{
         let { userId, email, msp, orgId } = req.user
@@ -48,7 +48,8 @@ router.get('', async (req, res)=>{
 
         if (dprNo && dprNo != '') {
             query.selector["dprNo"] = dprNo
-        } else if (dprId && dprId != '') {
+        }
+        if (dprId && dprId != '') {
             query.selector["dprId"] = dprId
         }
 
@@ -100,7 +101,7 @@ router.post('', async (req, res) => {
 
         console.log("Updating ccdr status")
 
-        let dprObj = await updateCCDRStatus({ email, orgId, msp, dprNo, dprId, ccdrStatus: CCDR_STATUS.IN_PROGRESS })
+        let dprObj = await updateCCDRStatus({ userId, email, orgId, msp, dprNo, dprId, ccdrStatus: CCDR_STATUS.IN_PROGRESS })
 
         res.status(200).json(ccdrObj)
 
@@ -112,10 +113,10 @@ router.post('', async (req, res) => {
 /** API to update ccdr status */
 router.put('/status', async (req, res)=>{
     try{
-        let { email, orgId, msp } = req.user
+        let { userId, email, orgId, msp } = req.user
         let { ccdrStatus, dprNo, dprId } = req.body
         
-        let dprObj = await updateCCDRStatus({ email, orgId, msp, dprNo, dprId, ccdrStatus })
+        let dprObj = await updateCCDRStatus({ userId, email, orgId, msp, dprNo, dprId, ccdrStatus })
 
         res.status(200).json(dprObj)
     }catch(err){
