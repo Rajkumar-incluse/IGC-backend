@@ -57,4 +57,12 @@ exports.DOCUMENT_STATUS = {
 	ACCEPTED: 'accepted'
 }
 
+exports.DOCUMENT_TYPE = {
+	LR_COPY: 'lrCopy',
+	SEAL_CODE: 'sealCode',
+	TAX_INVOICE: 'taxInvoice',
+	SIGNED_LR_COPY: 'signedLrCopy',
+	SIGNED_SEAL_CODE: 'signedSealCode'
+}
+
 exports.CHAINCODE_CHANNEL = "drlchannel"

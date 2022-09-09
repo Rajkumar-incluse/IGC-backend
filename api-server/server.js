@@ -1,4 +1,5 @@
 var express = require('express');
+const morgan = require('morgan')
 const Mongoose = require('mongoose')
 const https = require('https');
 var http = require('http');
@@ -31,6 +32,8 @@ ConnectDB()
 app.use(bodyParser.json({ limit: "50mb" }));
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
+
+app.use(morgan('dev'))
 
 //Passport Middleware
 app.use(passport.initialize());

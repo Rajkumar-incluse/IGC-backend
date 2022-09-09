@@ -38,13 +38,15 @@ type dpr struct {
 	PackingList    string    `json:"packingList"`
 	Notes          string    `json:"notes"`
 	Documents      string    `json:"documents"`
+	StartDate      time.Time `json:"startDate"`
+	EndDate        time.Time `json:"endDate"`
 }
 
 func (cc *dprChaincode) create(stub shim.ChaincodeStubInterface, arg []string) peer.Response {
 
 	args := strings.Split(arg[0], "^^")
 
-	if len(args) != 22 {
+	if len(args) != 24 {
 		return shim.Error("Incorrect number arguments. Expecting 20")
 	}
 	createdOn, err1 := time.Parse(time.RFC3339, args[18])
@@ -62,6 +64,16 @@ func (cc *dprChaincode) create(stub shim.ChaincodeStubInterface, arg []string) p
 
 	if err3 != nil {
 		return shim.Error("Error converting string to bool: " + err3.Error())
+	}
+
+	startDate, err4 := time.Parse(time.RFC3339, args[22])
+	if err4 != nil {
+		return shim.Error("Error converting string to date " + err4.Error())
+	}
+
+	endDate, err5 := time.Parse(time.RFC3339, args[23])
+	if err5 != nil {
+		return shim.Error("Error converting string to date " + err5.Error())
 	}
 
 	data := dpr{
@@ -87,6 +99,8 @@ func (cc *dprChaincode) create(stub shim.ChaincodeStubInterface, arg []string) p
 		PackingList:    args[19],
 		Notes:          args[20],
 		Documents:      args[21],
+		StartDate:      startDate,
+		EndDate:        endDate,
 	}
 
 	dataBytes, errMarshal := json.Marshal(data)
@@ -122,7 +136,7 @@ func (cc *dprChaincode) update(stub shim.ChaincodeStubInterface, arg []string) p
 
 	args := strings.Split(arg[0], "^^")
 
-	if len(args) != 22 {
+	if len(args) != 24 {
 		return shim.Error("Incorrect number arguments. Expecting 20")
 	}
 	createdOn, err1 := time.Parse(time.RFC3339, args[18])
@@ -140,6 +154,16 @@ func (cc *dprChaincode) update(stub shim.ChaincodeStubInterface, arg []string) p
 
 	if err3 != nil {
 		return shim.Error("Error converting string to bool: " + err3.Error())
+	}
+
+	startDate, err4 := time.Parse(time.RFC3339, args[22])
+	if err4 != nil {
+		return shim.Error("Error converting string to date " + err4.Error())
+	}
+
+	endDate, err5 := time.Parse(time.RFC3339, args[23])
+	if err5 != nil {
+		return shim.Error("Error converting string to date " + err5.Error())
 	}
 
 	data := dpr{
@@ -165,6 +189,8 @@ func (cc *dprChaincode) update(stub shim.ChaincodeStubInterface, arg []string) p
 		PackingList:    args[19],
 		Notes:          args[20],
 		Documents:      args[21],
+		StartDate:      startDate,
+		EndDate:        endDate,
 	}
 
 	dataBytes, errMarshal := json.Marshal(data)
