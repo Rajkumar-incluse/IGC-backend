@@ -61,7 +61,7 @@ documents:[
 /**
  * document startdate(tax invoice), enddate(signed lrcopy, signed seal code)
  */
-        let { dprNo, dprId, documentType } = req.body
+        let { dprNo, dprId, documentType, remarks } = req.body
         let { originalname, generatedName } = req.file
 
         let query = { "selector": { "orgId": orgId } }
@@ -99,6 +99,7 @@ documents:[
             orginalName: originalname,
             name: generatedName,
             documentStatus: { status: DOCUMENT_STATUS.UPLOADED, createdOn: getNow(), createdBy: userId },
+            remarks,
             createdOn: getNow(),
             createdBy: userId
         }
@@ -107,7 +108,6 @@ documents:[
         console.log({ documentType });
         /** updating start date on tax invoice upload */
         if(documentType == DOCUMENT_TYPE.TAX_INVOICE){
-            console.log("----------- taxinvoice uploaded changing start date");
             data.startDate = getNow()
         }
 
@@ -119,12 +119,8 @@ documents:[
             data.endDate = getNow()
         }
 
-        console.log(data);
-
         data['documents'] = JSON.stringify(docs)
         data.isDelete = data.isDelete.toString()
-
-        console.log(data);
 
         // updating the dpr
         let result = await invokeTransactionV2({

@@ -52,7 +52,7 @@ exports.CHAINCODE_NAMES = {
 }
 
 exports.DOCUMENT_STATUS = {
-	UPLOADED: 'uploaded',
+	UPLOADED: 'in-progress',
 	REJECTED: 'rejected',
 	ACCEPTED: 'accepted'
 }
