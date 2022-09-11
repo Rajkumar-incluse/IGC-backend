@@ -8,10 +8,11 @@ const { HandleResponseError } = require('../../utils/HandleResponseError')
 router.post('', async (req, res)=>{
     try{
         let { dprNo, problem } = req.body
+        let email = "admin@gmail.com"
+        let msp = "org1Msp"
+        let orgId = "631e30b3108198330d750aa2" // await getOrgIdForDprNo({ dprNo, email, msp })
 
-        let orgId = await getOrgIdForDprNo({ dprNo, email, msp })
-
-        let alertResult = await AlertModel.create({ dprNo, problem })
+        let alertResult = await AlertModel.create({ dprNo, problem, orgId })
 
         res.status(201).json({ ...alertResult._doc })
     }catch(err){

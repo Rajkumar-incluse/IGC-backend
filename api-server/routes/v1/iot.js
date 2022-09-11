@@ -14,7 +14,7 @@ router.post('', async (req, res)=>{
         let response = await axios.get(`http://ip-api.com/json/${ip}`)
         let { city, lat, lon, status, regionName } = response.data
 
-        let orgId = await getOrgIdForDprNo({ dprNo, email, msp })
+        let orgId = "631e30b3108198330d750aa2"// await getOrgIdForDprNo({ dprNo, email, msp })
 
         let data = {
             id: generateId(),
@@ -43,7 +43,7 @@ router.post('', async (req, res)=>{
         }
 
         // caching the recent temperature value of dpr
-        global.recent[orgId][dprNo] = { id, temperature, timestamp: getNow() }
+        global.recent[orgId][dprNo] = { id:data.id, temperature, timestamp: getNow() }
 
 
         let message = await invokeTransactionV2({
