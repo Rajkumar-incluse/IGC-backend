@@ -59,11 +59,28 @@ const CCDR_SCHEMA = [
     { name: 'misc' },
 ]
 
+const IOT_SCHEMA = [
+    { name: 'id' },
+    { name: 'deviceId' },
+    { name: 'dprNo' },
+    { name: 'temperature' },
+    { name: 'timestamp' },
+    { name: 'ip' },
+    { name: 'city' },
+    { name: 'state' },
+    { name: 'lat' },
+    { name: 'lon' },
+    { name: 'createdOn' },
+    { name: 'others' },
+    { name: 'orgId' },
+]
+
 exports.getSchema = (chaincodeName)=>{
     switch(chaincodeName){
         case CHAINCODE_NAMES.ORGANIZATION: return ORGANIZATION_SCHEMA
         case CHAINCODE_NAMES.DPR: return DPR_SCHEMA
         case CHAINCODE_NAMES.CCDR: return CCDR_SCHEMA
+        case CHAINCODE_NAMES.IOT: return IOT_SCHEMA
         default: 
             throw new CustomError({ code: 404, message: `Schema for chaincodename : ${chaincodeName} does not exists` })
     }

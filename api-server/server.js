@@ -53,6 +53,7 @@ app.use(cors());
 app.use('/api/v1', usermgmt);
 app.use('/api', require('./routes'))
 app.use('/document', express.static('uploads'))
+app.use('/temperature_data', require('./routes/v1/iot'))
 
 
 
@@ -77,6 +78,15 @@ Mongoose.connection.once('open', () => {
     console.log('Connected to DB')
     let server = app.listen(port, () => {
         console.log(`Server running on port ${port}`);
+        global.recent = {
+            orgId: {
+                dprNo: {
+                    temperature: "",
+                    timestamp: "",
+                    id: ""
+                }
+            }
+        }
     })
     logger.info('------------------- SERVER STARTED -----------------------');
     logger.info('***************  http://%s:%s  ******************', host, port);
