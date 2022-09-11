@@ -10,8 +10,6 @@ router.get('', async (req, res) => {
     try {
         let { email, msp, orgId } = req.user
 
-        // to get mission related info
-        let missions = (async () => {
             // retrive dpr from blockchain - total count
             let query = { selector: { orgId }, fields: ['startDate', 'endDate'] }
 
@@ -27,7 +25,7 @@ router.get('', async (req, res) => {
             })
 
             let data = JSON.parse(dataStr)
-
+            console.log("mission ", data)
             let obj = { total: 0, ongoing: 0, ended: 0, iotDevices: 2 }
 
             data.forEach(dpr => {
@@ -35,33 +33,57 @@ router.get('', async (req, res) => {
                 let end = new Date(dpr.endDate)
 
                 if (start > end) {
-                    obj.total++
-                    obj.ongoing++
+                    obj.total = obj.total++
+                    obj.ongoing = obj.ongoing++
                 }
 
                 if (end > start) {
-                    obj.total++
-                    obj.ended++
+                    obj.total = obj.total++
+                    obj.ended = obj.ended++
                 }
             })
 
-            return obj
-        })()
-
         // recent dprNo list 
-        // TODO sort recent dpr number
-        let dprListObj = (async ()=>{
-            return global.recent[orgId]
-        })()
+        // sort recent dpr number
+
+            let dprObjs = global.recent[orgId]
+            console.log("dprObjs : ", dprObjs);
+            let dprs = []
+
+            for(let key in dprObjs){
+                let temp = { ...dprObjs[key], dprNo: key }
+                dprs.push(temp)
+            }
+
+
+            dprs.sort((a, b)=>{
+                let ta = new Date(a.timestamp)
+                let tb = new Date(b.timestamp)
+
+                return tb - ta
+            })
 
         // get recent 5 alerts of dprNo
-        let recentFiveAlerts = AlertModel.find({ orgId }).distinct('dprNo').sort({ createdAt: -1 }).limit(5)
+        // let recentFiveAlerts = AlertModel.find({ orgId }).distinct('dprNo').sort({ createdAt: -1 }).limit(5)
+        // let recentFiveAlerts = await AlertModel.aggregate(
+        //     [
+        //         { "$unwind": "$dprNo" },
+        //         { "$group": { "_id": "$dprNo" } },
+        //         { "$sort": { "createdAt": -1 } },
+        //         { "$limit":  }
+        //     ]
+        // ).limit(5)
 
-        let [mission, dprList, recentAlert] = Promise.all([missions, dprListObj, recentFiveAlerts])
+        let recentFiveAlerts = [
+            { dprNo: "10000", problem: "Accident" },
+            { dprNo: "10001", problem: "Heavy traffic jam in hyderabad" },
+        ]
 
-        res.status(200).json({ mission, dprList, recentAlert })
+        // let [mission, dprList, recentAlert] = Promise.all([missions, dprListObj])
 
-    } catch (err) {
+        res.status(200).json({ mission : obj, dprList: dprs, recentAlert: recentFiveAlerts })
+
+    } catch (err) {recentFiveAlerts
         HandleResponseError(err, res)
     }
 })
@@ -82,7 +104,7 @@ router.get('/track', async (req, res) => {
         let dataStr = await invokeTransactionV2({
             metaInfo: { userName: email, org: msp },
             chainCodeAction: CHAINCODE_ACTIONS.GET,
-            chainCodeFunctionName: 'queryString',
+            chainCodeFunctionName: 'querystring',
             chainCodeName: CHAINCODE_NAMES.IOT,
             channelName: CHAINCODE_CHANNEL,
             data: queryString
@@ -122,10 +144,10 @@ router.get('/track', async (req, res) => {
 
 
             if (!obj.loc[i.city]) {
-                obj.loc[city] = 0
+                obj.loc[i.city] = 0
             }
 
-            obj.loc[city] = obj.loc[city]++
+            obj.loc[i.city] = obj.loc[i.city]++
 
         })
 
