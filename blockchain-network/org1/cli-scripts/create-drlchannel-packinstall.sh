@@ -16,6 +16,15 @@ popd
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
 peer lifecycle chaincode package CCDR.tar.gz --path /opt/gopath/src/github.com/chaincode/CCDR/ --lang golang --label CCDR_1.0
 
+echo "************ Package iot chaincode **********" 
+pushd /opt/gopath/src/github.com/chaincode/iot/
+GO111MODULE=on go mod vendor
+popd
+
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
+peer lifecycle chaincode package iot.tar.gz --path /opt/gopath/src/github.com/chaincode/iot/ --lang golang --label iot_1.0
+
+
 # echo "************ Package activeCCDR chaincode **********" 
 # pushd /opt/gopath/src/github.com/chaincode/activeCCDR/
 # GO111MODULE=on go mod vendor
@@ -103,6 +112,10 @@ peer lifecycle chaincode install dpr.tar.gz
 echo "***************** Install CCDR chaincode ***************"
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
 peer lifecycle chaincode install CCDR.tar.gz
+
+echo "***************** Install iot chaincode ***************"
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
+peer lifecycle chaincode install iot.tar.gz
 
 # echo "***************** Install activeCCDR chaincode ***************"
 # CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 

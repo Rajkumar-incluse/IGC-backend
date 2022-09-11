@@ -48,7 +48,8 @@ exports.CCDR_STATUS = {
 exports.CHAINCODE_NAMES = {
 	ORGANIZATION: 'Organization',
 	DPR: 'dpr',
-	CCDR: 'CCDR'	
+	CCDR: 'CCDR',
+	IOT: 'iot'	
 }
 
 exports.DOCUMENT_STATUS = {

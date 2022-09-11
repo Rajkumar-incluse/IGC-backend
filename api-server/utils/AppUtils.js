@@ -8,6 +8,9 @@
 
 const fs = require('fs');
 const path = require('path');
+const { invokeTransactionV2 } = require('../app/invoke');
+const { ResourceNotFoundError } = require('./HandleResponseError');
+const { CHAINCODE_ACTIONS, CHAINCODE_NAMES, CHAINCODE_CHANNEL } = require('./helper');
 
 exports.buildCCPOrg1 = () => {
 	// load the common connection configuration file
@@ -113,4 +116,27 @@ exports.prettyJSONString = (inputString) => {
 	else {
 		 return inputString;
 	}
+}
+
+exports.getOrgIdForDprNo = async ({ dprNo, email, msp }) => {
+	let query = { selector: { dprNo }, fields: ['dprNo', 'id', 'orgId']}
+
+	let queryString = JSON.stringify(query)
+
+	let dataString = await invokeTransactionV2({
+		metaInfo: { userName: email, org: msp },
+		chainCodeAction: CHAINCODE_ACTIONS.GET,
+		chainCodeFunctionName: 'querystring',
+		chainCodeName: CHAINCODE_NAMES.DPR,
+		data: queryString,
+		channelName: CHAINCODE_CHANNEL
+	})
+
+	let data = JSON.parse(dataString)
+
+	if(data.length == 0){
+		throw new ResourceNotFoundError({ message:"No dpr entry found for this dprNo" })
+	}
+
+	return data[0].orgId
 }

@@ -15,6 +15,21 @@ echo "***************** checkCommitReadiness dpr chaincode ***************"
                     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
                     peer lifecycle chaincode checkcommitreadiness --channelID drlchannel --name dpr --version 1.0 --sequence 1    --signature-policy "OR('org1MSP.peer','org2MSP.peer','org3MSP.peer','org4MSP.peer','org5MSP.peer' )"
 
+echo "***************** queryinstalled iot chaincode ***************"
+                    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
+                    peer lifecycle chaincode queryinstalled >&log.txt
+                    { set +x; } 2>/dev/null
+                    cat log.txt
+                    PACKAGE_ID=$(sed -n "/iot_1.0/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
+                    
+echo "***************** ApproveforMyOrg iot chaincode ***************"
+                    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
+                    peer lifecycle chaincode approveformyorg -o orderer1.orderer.drlnet.com:7050 --ordererTLSHostnameOverride orderer1.orderer.drlnet.com --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/orderer/tls/tlsca.orderer.drlnet.com-cert.pem --channelID drlchannel --name iot --version 1.0 --package-id $PACKAGE_ID --sequence 1    --signature-policy "OR('org1MSP.peer','org2MSP.peer','org3MSP.peer','org4MSP.peer','org5MSP.peer' )"
+                    
+echo "***************** checkCommitReadiness iot chaincode ***************"
+                    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
+                    peer lifecycle chaincode checkcommitreadiness --channelID drlchannel --name iot --version 1.0 --sequence 1    --signature-policy "OR('org1MSP.peer','org2MSP.peer','org3MSP.peer','org4MSP.peer','org5MSP.peer' )"
+
 echo "***************** queryinstalled CCDR chaincode ***************"
                     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/users/Admin@org1.drlnet.com/msp CORE_PEER_ADDRESS=peer0.org1.drlnet.com:7051 CORE_PEER_LOCALMSPID="org1MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.drlnet.com/peers/peer0.org1.drlnet.com/tls/ca.crt 
                     peer lifecycle chaincode queryinstalled >&log.txt

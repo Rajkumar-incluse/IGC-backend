@@ -79,7 +79,7 @@ router.get('', async (req, res) => {
 
         if(id && id != '') filter['_id'] = id
 
-        let users = await UserModel.find(filter).select('-password -status -organization')
+        let users = await UserModel.find(filter).select('-password -organization')
         res.status(200).json(users)
     } catch (err) {
         HandleResponseError(err, res)
