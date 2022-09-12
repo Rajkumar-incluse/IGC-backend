@@ -1,6 +1,6 @@
 const { invokeTransactionV2 } = require('../../app/invoke')
 const { AlertModel } = require('../../models')
-const { HandleResponseError, RequestInputError } = require('../../utils/HandleResponseError')
+const { HandleResponseError, RequestInputError, ResourceNotFoundError } = require('../../utils/HandleResponseError')
 const { CHAINCODE_ACTIONS, CHAINCODE_NAMES, CHAINCODE_CHANNEL } = require('../../utils/helper')
 
 const router = require('express').Router()
@@ -28,20 +28,27 @@ router.get('', async (req, res) => {
             console.log("mission ", data)
             let obj = { total: 0, ongoing: 0, ended: 0, iotDevices: 2 }
 
-            data.forEach(dpr => {
+            for(let i=0; i< data.length; i++) {
+                let dpr = data[i]
                 let start = new Date(dpr.startDate)
                 let end = new Date(dpr.endDate)
 
                 if (start > end) {
-                    obj.total = obj.total++
-                    obj.ongoing = obj.ongoing++
+                    console.log("start > end")
+                    obj.total = obj.total + 1
+                    obj.ongoing = obj.ongoing + 1
                 }
 
                 if (end > start) {
-                    obj.total = obj.total++
-                    obj.ended = obj.ended++
+                    console.log("end > start")
+                    obj.total = obj.total + 1
+                    obj.ended = obj.ended + 1
                 }
-            })
+
+                if(start == end){
+                    console.log("start == end")
+                }
+            }
 
         // recent dprNo list 
         // sort recent dpr number
@@ -112,6 +119,10 @@ router.get('/track', async (req, res) => {
 
         let data = JSON.parse(dataStr)
 
+        if(data.length == 0){
+            throw new ResourceNotFoundError({ message: "No record found for the given dprNo" })
+        }
+
         let obj = {
             loc: {},
             highTemp: Number.MIN_VALUE,
@@ -120,8 +131,12 @@ router.get('/track', async (req, res) => {
             below2: 0
         }
 
-        data.forEach(i => {
+        for(let j = 0; j<data.length; j++){
+            
+            let i = data[j]
+
             let t = parseFloat(i.temperature)
+            console.log("parsed temp : ", t)
             // setting high temperature
             if (t > obj.highTemp) {
                 obj.highTemp = t
@@ -134,12 +149,12 @@ router.get('/track', async (req, res) => {
 
             // count above 12
             if (t > 12) {
-                obj.above12 = obj.above12++
+                obj.above12 = obj.above12+1
             }
 
             // below 2
             if (2 > t) {
-                obj.below2 = obj.below2++
+                obj.below2 = obj.below2+1
             }
 
 
@@ -147,15 +162,41 @@ router.get('/track', async (req, res) => {
                 obj.loc[i.city] = 0
             }
 
-            obj.loc[i.city] = obj.loc[i.city]++
+            obj.loc[i.city] = obj.loc[i.city]+1
 
+        }
+
+        let mostSpentLocation = ""
+
+        let spentLocationArr = []
+        for(let key in obj.loc){
+            let te = { times: obj.loc[key], location: key }
+            spentLocationArr.push(te)
+        }
+
+        mostSpentLocation = spentLocationArr[0]
+
+        for(let i = 0; i<spentLocationArr.length; i++){
+            let ob = spentLocationArr[i]
+            if(ob.times > mostSpentLocation.times){
+                mostSpentLocation = ob
+            }
+        }
+
+        data.sort((a,b)=>{
+            let aD = new Date(a.timestamp)
+            let bD = new Date(b.timestamp)
+
+            if(aD > bD) return 1
+            if(bD > aD) return -1
+            return 0
         })
 
         let recentData = data[data.length - 1]
 
         let vehicleTracking = {
             currentLocation: recentData.city,
-            mostTimeSpendLocation: '',
+            mostTimeSpendLocation: mostSpentLocation.location,
             tempAboveTimes: obj.above12,
             tempBelowTimes: obj.below2,
             lastTrackedTime: recentData.timestamp,
