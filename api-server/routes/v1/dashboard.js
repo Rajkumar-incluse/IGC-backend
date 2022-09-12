@@ -1,7 +1,7 @@
 const { invokeTransactionV2 } = require('../../app/invoke')
 const { AlertModel } = require('../../models')
 const { HandleResponseError, RequestInputError, ResourceNotFoundError } = require('../../utils/HandleResponseError')
-const { CHAINCODE_ACTIONS, CHAINCODE_NAMES, CHAINCODE_CHANNEL } = require('../../utils/helper')
+const { CHAINCODE_ACTIONS, CHAINCODE_NAMES, CHAINCODE_CHANNEL, getNow } = require('../../utils/helper')
 
 const router = require('express').Router()
 
@@ -55,20 +55,26 @@ router.get('', async (req, res) => {
 
             let dprObjs = global.recent[orgId]
             console.log("dprObjs : ", dprObjs);
-            let dprs = []
+            let dprs = [
+                { dprNo: "10000", temperature: "6.0", timestamp: getNow() },
+                { dprNo: "10002", temperature: "8.0", timestamp: getNow() },
+                { dprNo: "10001", temperature: "12.0", timestamp: getNow() },
+                { dprNo: "10001", temperature: "13.0", timestamp: getNow() },
+                { dprNo: "10001", temperature: "18.0", timestamp: getNow() },
+            ]
 
-            for(let key in dprObjs){
-                let temp = { ...dprObjs[key], dprNo: key }
-                dprs.push(temp)
-            }
+            // for(let key in dprObjs){
+            //     let temp = { ...dprObjs[key], dprNo: key }
+            //     dprs.push(temp)
+            // }
 
 
-            dprs.sort((a, b)=>{
-                let ta = new Date(a.timestamp)
-                let tb = new Date(b.timestamp)
+            // dprs.sort((a, b)=>{
+            //     let ta = new Date(a.timestamp)
+            //     let tb = new Date(b.timestamp)
 
-                return tb - ta
-            })
+            //     return tb - ta
+            // })
 
         // get recent 5 alerts of dprNo
         // let recentFiveAlerts = AlertModel.find({ orgId }).distinct('dprNo').sort({ createdAt: -1 }).limit(5)
