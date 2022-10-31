@@ -100,7 +100,7 @@ router.post('', async (req, res) => {
 router.get('', async (req, res) => {
     try {
         let { userId, email, msp, orgId } = req.user
-        let { dprNo, id } = req.query
+        let { dprNo, id, consignment_status } = req.query
 
         let query = { "selector": { "orgId": orgId } }
 
@@ -109,6 +109,10 @@ router.get('', async (req, res) => {
 
         if(!(dprNo && dprNo != '') && !(id && id != '')){
             query["fields"] = ['id', 'dprNo', 'ccdrStatus', 'effectiveDate', 'transportMode', 'startDate', 'endDate']
+        }
+
+        if(consignment_status && consignment_status == "true"){
+            query["fields"] = ['id', 'dprNo', 'notes']
         }
 
         let queryString = JSON.stringify(query)
@@ -125,6 +129,71 @@ router.get('', async (req, res) => {
         res.status(200).json(JSON.parse(dataStr))
 
     } catch (err) {
+        HandleResponseError(err, res)
+    }
+})
+
+/** API to update consignment status for a dprId in notes */
+router.put('/consignment-status', async(req, res)=>{
+    try{
+        let { userId, email, orgId, msp } = req.user
+        let { dprId, status } = req.body
+
+        if (!dprId || dprId == '') {
+            throw new CustomError({ message: 'Enter a DPR ID' })
+        }
+
+        let query = { "selector": { "orgId": orgId, "id": dprId } }
+
+        let queryString = JSON.stringify(query)
+
+        let dataString = await invokeTransactionV2({
+            metaInfo: { userName: email, org: msp },
+            chainCodeAction: CHAINCODE_ACTIONS.GET,
+            channelName: CHAINCODE_CHANNEL,
+            data: queryString,
+            chainCodeFunctionName: 'querystring',
+            chainCodeName: CHAINCODE_NAMES.DPR
+        })
+
+        let data = JSON.parse(dataString)
+
+        if(data.length == 0){
+            throw new ResourceNotFoundError({ message: `DPR not found for dprId: ${dprId} for your org` })
+        }
+
+        data = data[0]
+
+        if(data.notes == ""){
+            data.notes = JSON.stringify([])
+        }
+
+        let notes = JSON.parse(data.notes)
+
+        let consignmentStatusobject = {
+            type: "CONSIGNMENT_STATUS",
+            status,
+            createdOn: getNow(),
+            createdBy: userId
+        }
+
+        notes.push(consignmentStatusobject)
+
+        data["notes"] = JSON.stringify(notes)
+        data.isDelete = data.isDelete.toString()
+
+        // updating the dpr
+        let result = await invokeTransactionV2({
+            metaInfo: { userName: email, org: msp },
+            channelName: CHAINCODE_CHANNEL,
+            chainCodeAction: CHAINCODE_ACTIONS.UPDATE,
+            chainCodeName: CHAINCODE_NAMES.DPR,
+            chainCodeFunctionName: 'update',
+            data: data
+        })
+
+        res.status(200).json(data)
+    }catch(err){
         HandleResponseError(err, res)
     }
 })

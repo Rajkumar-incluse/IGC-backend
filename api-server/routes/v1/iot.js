@@ -61,4 +61,34 @@ router.post('', async (req, res)=>{
     }
 })
 
+router.get('', async (req, res)=>{
+    try{
+        let { userId, email, msp, orgId = "631e30b3108198330d750aa2" } = req.user
+        let { dprNo } = req.query
+
+        if (!dprNo || dprNo == '') {
+            throw new CustomError({ message: 'Enter a DPR NO' })
+        }
+
+        let query = { "selector": { "orgId": orgId, "dprNo": dprNo } }
+        query["fields"] = ['id', 'temperature', 'timestamp', 'city', 'state']
+
+        let queryString = JSON.stringify(query)
+
+        let dataStr = await invokeTransactionV2({
+            metaInfo: { userName: email, org: msp },
+            chainCodeAction: CHAINCODE_ACTIONS.GET,
+            channelName: CHAINCODE_CHANNEL,
+            data: queryString,
+            chainCodeFunctionName: 'querystring',
+            chainCodeName: CHAINCODE_NAMES.IOT
+        })
+
+        res.status(200).json(JSON.parse(dataStr))
+
+    }catch(err){
+        HandleResponseError(err, res)
+    }
+})
+
 module.exports = router
