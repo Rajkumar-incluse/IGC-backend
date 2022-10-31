@@ -1,0 +1,1442 @@
+{
+	"info": {
+		"_postman_id": "cfb38734-5df2-412c-bfd3-56990e84ce3f",
+		"name": "DRLNET",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user management",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"superviser\",\n    \"lastName\": \"2\",\n    \"email\": \"superviser2@gmail.com\",\n    \"phoneNumber\": \"123456789\",\n    \"role\": \"superviser\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/participantapi/Users/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"participantapi",
+								"Users",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "register user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"superviser\",\n    \"lastName\": \"2\",\n    \"email\": \"superviser2@gmail.com\",\n    \"phoneNumber\": \"123456789\",\n    \"role\": \"superviser\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/participantapi/Users/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"participantapi",
+										"Users",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "337"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"151-rYT1dTr5uLtqOje9PnJy8wbJniY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 17:43:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"631635341640843edaf4c65c\",\n    \"firstName\": \"superviser\",\n    \"lastName\": \"2\",\n    \"email\": \"superviser2@gmail.com\",\n    \"phoneNumber\": \"123456789\",\n    \"role\": \"superviser\",\n    \"status\": \"active\",\n    \"organization\": \"63161ed0ea50eae8f1a16a48\",\n    \"createdBy\": \"63161ed0ea50eae8f1a16a4a\",\n    \"createdAt\": \"2022-09-05T17:43:16.668Z\",\n    \"updatedAt\": \"2022-09-05T17:43:16.668Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"setting token\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    let res = pm.response.json()",
+									"    let token = res.token.split(\" \")[1]",
+									"    pm.environment.set(\"token\", token)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"pwd_admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"pwd_admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "387"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"183-87LIZU1FADtFHMvP7p6Bm3QU2D8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 17:42:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"token\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzE2MWVkMGVhNTBlYWU4ZjFhMTZhNGEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm1zcCI6Im9yZzFNU1AiLCJvcmdJZCI6IjYzMTYxZWQwZWE1MGVhZThmMWExNmE0OCIsImlhdCI6MTY2MjM5OTc1OSwiZXhwIjoxNjY1OTk5NzU5fQ.kgdTaLvg_cZShdMG5OexcbcctOxZxTu0cn06aO2fVE0\",\n    \"role\": \"admin\",\n    \"firstName\": \"admin\",\n    \"lastName\": \"admin\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get user list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/participantapi/Users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"participantapi",
+								"Users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get user list",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/participantapi/Users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"participantapi",
+										"Users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1187"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4a3-wC8OxYvFDTacw6fmyrCuWOAwWws\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 17:43:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"63161ed0ea50eae8f1a16a4a\",\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"email\": \"admin@gmail.com\",\n        \"password\": \"$2a$10$MAzdTL2mpz.6ShnRTsxswONoRc/sL9CdnVurogFLD6PmtJ8usAHbi\",\n        \"phoneNumber\": \"9042307071\",\n        \"role\": \"admin\",\n        \"status\": \"active\",\n        \"organization\": \"63161ed0ea50eae8f1a16a48\",\n        \"createdAt\": \"2022-09-05T16:07:44.929Z\",\n        \"updatedAt\": \"2022-09-05T16:07:44.929Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"63161ee2ea50eae8f1a16a4f\",\n        \"firstName\": \"superviser\",\n        \"lastName\": \"1\",\n        \"email\": \"superviser1@gmail.com\",\n        \"password\": \"$2a$10$0oEcmsVzUuHylrGYvh0fmeBuOOqJc.FbYL7/ag.DaQiGHuEPCf8La\",\n        \"phoneNumber\": \"123456789\",\n        \"role\": \"superviser\",\n        \"status\": \"active\",\n        \"organization\": \"63161ed0ea50eae8f1a16a48\",\n        \"createdBy\": \"63161ed0ea50eae8f1a16a4a\",\n        \"createdAt\": \"2022-09-05T16:08:02.227Z\",\n        \"updatedAt\": \"2022-09-05T16:08:02.227Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"631635341640843edaf4c65c\",\n        \"firstName\": \"superviser\",\n        \"lastName\": \"2\",\n        \"email\": \"superviser2@gmail.com\",\n        \"password\": \"$2a$10$MAj5FdQSkn5b7ISYIurri.0huHpPbULVDgEVwkPu/U86Vzf.TBZV.\",\n        \"phoneNumber\": \"123456789\",\n        \"role\": \"superviser\",\n        \"status\": \"active\",\n        \"organization\": \"63161ed0ea50eae8f1a16a48\",\n        \"createdBy\": \"63161ed0ea50eae8f1a16a4a\",\n        \"createdAt\": \"2022-09-05T17:43:16.668Z\",\n        \"updatedAt\": \"2022-09-05T17:43:16.668Z\",\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ParticipantAPI",
+			"item": [
+				{
+					"name": "Organization",
+					"item": [
+						{
+							"name": "Create Account (Organization)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"FirstName\": \"admin\",\n    \"SurName\": \"admin\",\n    \"PhoneNumber\": \"9042307071\",\n    \"CompanyName\": \"org1MSP\",\n    \"CompanySize\": \"200\",\n    \"Country\": \"India\",\n    \"State\": \"AP\",\n    \"LicenseKey\": \"ABC\",\n    \"BusinessEmail\": \"admin@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/participantapi/Organization/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"participantapi",
+										"Organization",
+										"create"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create Account (Organization)",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"FirstName\": \"admin\",\n    \"SurName\": \"admin\",\n    \"PhoneNumber\": \"9042307071\",\n    \"CompanyName\": \"org1MSP\",\n    \"CompanySize\": \"200\",\n    \"Country\": \"India\",\n    \"State\": \"AP\",\n    \"LicenseKey\": \"ABC\",\n    \"BusinessEmail\": \"admin@gmail.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/participantapi/Organization/create",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"participantapi",
+												"Organization",
+												"create"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "599"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"257-rpb3p+wKsXCRT56KnplosrxuvQE\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 05 Sep 2022 17:42:02 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isDeleted\": false,\n    \"_id\": \"631634e61640843edaf4c654\",\n    \"companyName\": \"org1MSP\",\n    \"companySize\": 200,\n    \"country\": \"India\",\n    \"state\": \"AP\",\n    \"licenseKey\": \"ABC\",\n    \"createdAt\": \"2022-09-05T17:41:58.405Z\",\n    \"updatedAt\": \"2022-09-05T17:41:58.405Z\",\n    \"__v\": 0,\n    \"user\": {\n        \"_id\": \"631634e61640843edaf4c656\",\n        \"firstName\": \"admin\",\n        \"lastName\": \"admin\",\n        \"email\": \"admin@gmail.com\",\n        \"password\": \"$2a$10$R514ZOJUBEYrAjUOOQnfR.KBLWXrMQ9iNk6E11xV4jv3lgv4F8lsu\",\n        \"phoneNumber\": \"9042307071\",\n        \"role\": \"admin\",\n        \"status\": \"active\",\n        \"organization\": \"631634e61640843edaf4c654\",\n        \"createdAt\": \"2022-09-05T17:41:58.544Z\",\n        \"updatedAt\": \"2022-09-05T17:41:58.544Z\",\n        \"__v\": 0\n    }\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DPR",
+			"item": [
+				{
+					"name": "Search DPR no",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dpr/search?dprno=123",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dpr",
+								"search"
+							],
+							"query": [
+								{
+									"key": "dprno",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search DPR no",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/dpr/search?dprno=123",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"dpr",
+										"search"
+									],
+									"query": [
+										{
+											"key": "dprno",
+											"value": "123"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "345"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"159-ozwrI+eBHoiV4sD9jXIHk9+GEag\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 17:43:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"DPR\": \"123\",\n    \"Shipper_no\": \"123\",\n    \"from\": \"HYD\",\n    \"TO\": \"DELHI\",\n    \"TABLET\": [\n        {\n            \"Cresp 40mcg PFS Hospital Supply DOM\": \"180\",\n            \"DOLO 300mcg/ml Vial\": \"1200\"\n        }\n    ],\n    \"Documnet NO\": \"!AEEWWQQ\",\n    \"Reference SOP no\": \"SOP-1212121\",\n    \"Department\": \"GLOBAL-distrbution\",\n    \"PICKING_list_no\": \"12121543534\",\n    \"version\": \"1.0\",\n    \"legacy doc no\": \"23424323423\",\n    \"Effective date\": \"22/02/20222\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create dpr",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dprNo\": \"123\",\n    \"shipperNo\": \"123\",\n    \"from\": \"HYD\",\n    \"to\": \"DELHI\",\n    \"products\": [\n        {\n            \"Cresp 40mcg PFS Hospital Supply DOM\": \"180\",\n            \"DOLO 300mcg/ml Vial\": \"1200\"\n        }\n    ],\n    \"documentNo\": \"!AEEWWQQ\",\n    \"referenceSOPNo\": \"SOP-1212121\",\n    \"department\": \"GLOBAL-distrbution\",\n    \"pickingListNo\": \"12121543534\",\n    \"version\": \"1.0\",\n    \"legacyDocNo\": \"23424323423\",\n    \"effectiveDate\": \"2022-09-05T00:00:00+05.30\",\n    \"transportMode\": \"active\",\n    \"packingList\": [\n        {\n            \"sNo\": \"1 0f 1\",\n            \"product\": \"DOLO\",\n            \"bNo\": \"123\",\n            \"quantity\": \"120\"\n        },\n        {\n            \"sNo\": \"2 0f 1\",\n            \"product\": \"Paracetamol\",\n            \"bNo\": \"124\",\n            \"quantity\": \"180\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/dpr",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dpr"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create dpr",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dprNo\": \"123\",\n    \"shipperNo\": \"123\",\n    \"from\": \"HYD\",\n    \"to\": \"DELHI\",\n    \"products\": [\n        {\n            \"Cresp 40mcg PFS Hospital Supply DOM\": \"180\",\n            \"DOLO 300mcg/ml Vial\": \"1200\"\n        }\n    ],\n    \"documentNo\": \"!AEEWWQQ\",\n    \"referenceSOPNo\": \"SOP-1212121\",\n    \"department\": \"GLOBAL-distrbution\",\n    \"pickingListNo\": \"12121543534\",\n    \"version\": \"1.0\",\n    \"legacyDocNo\": \"23424323423\",\n    \"effectiveDate\": \"2022-09-05T00:00:00+05.30\",\n    \"transportMode\": \"active\",\n    \"packingList\": [\n        {\n            \"sNo\": \"1 0f 1\",\n            \"product\": \"DOLO\",\n            \"bNo\": \"123\",\n            \"quantity\": \"120\"\n        },\n        {\n            \"sNo\": \"2 0f 1\",\n            \"product\": \"Paracetamol\",\n            \"bNo\": \"124\",\n            \"quantity\": \"180\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/dpr",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"dpr"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "908"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38c-zGHTfiiZSnC364Gcoymx63Zt/4g\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Sep 2022 13:22:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"d6c120b1-d068-4dc3-b73b-f9deedb933c9\",\n    \"dprNo\": \"123\",\n    \"shipperNo\": \"123\",\n    \"from\": \"HYD\",\n    \"to\": \"DELHI\",\n    \"products\": \"[{\\\"Cresp 40mcg PFS Hospital Supply DOM\\\":\\\"180\\\",\\\"DOLO 300mcg/ml Vial\\\":\\\"1200\\\"}]\",\n    \"documentNo\": \"!AEEWWQQ\",\n    \"referenceSOPNo\": \"SOP-1212121\",\n    \"department\": \"GLOBAL-distrbution\",\n    \"pickingListNo\": \"12121543534\",\n    \"version\": \"1.0\",\n    \"legacyDocNo\": \"23424323423\",\n    \"effectiveDate\": \"2022-09-09T18:52:32+05:30\",\n    \"ccdrStatus\": \"{\\\"status\\\":\\\"not-started\\\",\\\"createdBy\\\":\\\"6315c40b41d9326e3b17b03a\\\",\\\"createdOn\\\":\\\"2022-09-09T18:52:32+05:30\\\"}\",\n    \"transportMode\": \"active\",\n    \"orgId\": \"6315c40b41d9326e3b17b038\",\n    \"isDelete\": \"false\",\n    \"createdBy\": \"6315c40b41d9326e3b17b03a\",\n    \"createdOn\": \"2022-09-09T18:52:32+05:30\",\n    \"packingList\": \"[{\\\"sNo\\\":\\\"1 0f 1\\\",\\\"product\\\":\\\"DOLO\\\",\\\"bNo\\\":\\\"123\\\",\\\"quantity\\\":\\\"120\\\"},{\\\"sNo\\\":\\\"2 0f 1\\\",\\\"product\\\":\\\"Paracetamol\\\",\\\"bNo\\\":\\\"124\\\",\\\"quantity\\\":\\\"180\\\"}]\",\n    \"notes\": \"\",\n    \"documents\": \"[]\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get DPR",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dpr?dprNo=&id=&consignment_status=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dpr"
+							],
+							"query": [
+								{
+									"key": "dprNo",
+									"value": ""
+								},
+								{
+									"key": "id",
+									"value": ""
+								},
+								{
+									"key": "consignment_status",
+									"value": "",
+									"description": "set value to \"true\" - to get notes"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get DPR dprId & || dprNo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/dpr?dprNo=&id=b48ce678-ee32-4d0b-ae79-21488b0c4cfa",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"dpr"
+									],
+									"query": [
+										{
+											"key": "dprNo",
+											"value": ""
+										},
+										{
+											"key": "id",
+											"value": "b48ce678-ee32-4d0b-ae79-21488b0c4cfa"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "777"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"309-N485Fi2RMNFv20N72Ec4PwZEh6w\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 18:27:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"ccdrStatus\": \"in-progress\",\n        \"createdBy\": \"63163d94d4ab959d473d6351\",\n        \"createdOn\": \"2022-09-05T18:21:46Z\",\n        \"department\": \"GLOBAL-distrbution\",\n        \"documentNo\": \"!AEEWWQQ\",\n        \"dprNo\": \"123\",\n        \"effectiveDate\": \"2022-09-05T18:21:46Z\",\n        \"from\": \"HYD\",\n        \"id\": \"b48ce678-ee32-4d0b-ae79-21488b0c4cfa\",\n        \"isDelete\": false,\n        \"legacyDocNo\": \"23424323423\",\n        \"notes\": \"\",\n        \"orgId\": \"63163d94d4ab959d473d634f\",\n        \"packingList\": \"[{\\\"sNo\\\":\\\"1 0f 1\\\",\\\"product\\\":\\\"DOLO\\\",\\\"bNo\\\":\\\"123\\\",\\\"quantity\\\":\\\"120\\\"},{\\\"sNo\\\":\\\"2 0f 1\\\",\\\"product\\\":\\\"Paracetamol\\\",\\\"bNo\\\":\\\"124\\\",\\\"quantity\\\":\\\"180\\\"}]\",\n        \"pickingListNo\": \"12121543534\",\n        \"products\": \"[{\\\"Cresp 40mcg PFS Hospital Supply DOM\\\":\\\"180\\\",\\\"DOLO 300mcg/ml Vial\\\":\\\"1200\\\"}]\",\n        \"referenceSOPNo\": \"SOP-1212121\",\n        \"shipperNo\": \"123\",\n        \"to\": \"DELHI\",\n        \"transportMode\": \"active\",\n        \"version\": \"1.0\"\n    }\n]"
+						},
+						{
+							"name": "Get all DPR",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/dpr?dprNo=&id=",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"dpr"
+									],
+									"query": [
+										{
+											"key": "dprNo",
+											"value": ""
+										},
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "152"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"98-RpK6L6EXwHizeb0TDCZNgKBnB/I\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 18:31:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"ccdrStatus\": \"in-progress\",\n        \"dprNo\": \"123\",\n        \"effectiveDate\": \"2022-09-05T18:21:46Z\",\n        \"id\": \"b48ce678-ee32-4d0b-ae79-21488b0c4cfa\",\n        \"transportMode\": \"active\"\n    }\n]"
+						},
+						{
+							"name": "Get DPR - consignment_status=true",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/dpr?dprNo=&id=&consignment_status=",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"dpr"
+									],
+									"query": [
+										{
+											"key": "dprNo",
+											"value": ""
+										},
+										{
+											"key": "id",
+											"value": ""
+										},
+										{
+											"key": "consignment_status",
+											"value": "",
+											"description": "set value to \"true\" - to get notes"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "363"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16b-uZRIigtAH+UNM96TvY4vbE/lCe0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 31 Oct 2022 18:26:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"dprNo\": \"123\",\n        \"id\": \"c35b07d9-6278-4271-9aad-0855645feb3d\",\n        \"notes\": \"[{\\\"type\\\":\\\"CONSIGNMENT_STATUS\\\",\\\"status\\\":\\\"approved\\\",\\\"createdOn\\\":\\\"2022-10-31T23:50:52+05:30\\\",\\\"createdBy\\\":\\\"63600cac24f63a7ea1fac53e\\\"},{\\\"type\\\":\\\"CONSIGNMENT_STATUS\\\",\\\"status\\\":\\\"rejected\\\",\\\"createdOn\\\":\\\"2022-10-31T23:51:11+05:30\\\",\\\"createdBy\\\":\\\"63600cac24f63a7ea1fac53e\\\"}]\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Update consignment status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dprId\": \"c35b07d9-6278-4271-9aad-0855645feb3d\",\n    \"status\": \"rejected\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/dpr/consignment-status",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dpr",
+								"consignment-status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CCDR",
+			"item": [
+				{
+					"name": "Create CCDR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dprNo\": \"123\",\n    \"dprId\": \"232b1c0a-ee31-410d-8eb5-e1f9362a41c9\",\n    \"transportMode\": \"active\",\n    \"steps\": [\n        {\n            \"name\": \"generalInstruction\",\n            \"data\": [\n                {\n                    \"key\": \"properCleaning\",\n                    \"val\": true\n                },\n                {\n                    \"key\": \"calibration\",\n                    \"val\": \"\"\n                },\n                {\n                    \"key\": \"gelpackPacking\",\n                    \"val\": true\n                }\n            ]\n        },\n        {\n            \"name\": \"packingOperation\",\n            \"data\": [\n                {\n                    \"key\": \"\",\n                    \"val\": \"\"\n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/ccdr",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"ccdr"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create CCDR",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dprNo\": \"123\",\n    \"dprId\": \"b48ce678-ee32-4d0b-ae79-21488b0c4cfa\",\n    \"transportMode\": \"active\",\n    \"steps\": [\n        {\n            \"name\": \"generalInstruction\",\n            \"data\": [\n                {\n                    \"key\": \"properCleaning\",\n                    \"val\": true\n                },\n                {\n                    \"key\": \"calibration\",\n                    \"val\": \"\"\n                },\n                {\n                    \"key\": \"gelpackPacking\",\n                    \"val\": true\n                }\n            ]\n        },\n        {\n            \"name\": \"packingOperation\",\n            \"data\": [\n                {\n                    \"key\": \"\",\n                    \"val\": \"\"\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/ccdr",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"ccdr"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "525"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"20d-PlWJyRF2ECmlwoXkR0QvqLV9FGQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 18:24:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"e6053c24-a4fd-4df2-863a-f26819638e3a\",\n    \"dprNo\": \"123\",\n    \"dprId\": \"b48ce678-ee32-4d0b-ae79-21488b0c4cfa\",\n    \"orgId\": \"63163d94d4ab959d473d634f\",\n    \"transportMode\": \"active\",\n    \"isDelete\": \"false\",\n    \"steps\": \"[{\\\"name\\\":\\\"generalInstruction\\\",\\\"data\\\":[{\\\"key\\\":\\\"properCleaning\\\",\\\"val\\\":true},{\\\"key\\\":\\\"calibration\\\",\\\"val\\\":\\\"\\\"},{\\\"key\\\":\\\"gelpackPacking\\\",\\\"val\\\":true}]},{\\\"name\\\":\\\"packingOperation\\\",\\\"data\\\":[{\\\"key\\\":\\\"\\\",\\\"val\\\":\\\"\\\"}]}]\",\n    \"createdOn\": \"2022-09-05T18:24:46+00:00\",\n    \"createdBy\": \"63163d94d4ab959d473d6351\",\n    \"misc\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get CCDR by dprNo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/ccdr?dprNo=&dprId=232b1c0a-ee31-410d-8eb5-e1f9362a41c9",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"ccdr"
+							],
+							"query": [
+								{
+									"key": "dprNo",
+									"value": ""
+								},
+								{
+									"key": "dprId",
+									"value": "232b1c0a-ee31-410d-8eb5-e1f9362a41c9"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get CCDR by dprNo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/ccdr?dprNo=&dprId=",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"ccdr"
+									],
+									"query": [
+										{
+											"key": "dprNo",
+											"value": ""
+										},
+										{
+											"key": "dprId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "520"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"208-Wga0o4h5dmZ28rYqDxtiMeBHE+U\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Sep 2022 18:25:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"createdBy\": \"63163d94d4ab959d473d6351\",\n        \"createdOn\": \"2022-09-05T18:24:46Z\",\n        \"dprId\": \"b48ce678-ee32-4d0b-ae79-21488b0c4cfa\",\n        \"dprNo\": \"123\",\n        \"id\": \"e6053c24-a4fd-4df2-863a-f26819638e3a\",\n        \"isDelete\": false,\n        \"misc\": \"\",\n        \"orgId\": \"63163d94d4ab959d473d634f\",\n        \"steps\": \"[{\\\"name\\\":\\\"generalInstruction\\\",\\\"data\\\":[{\\\"key\\\":\\\"properCleaning\\\",\\\"val\\\":true},{\\\"key\\\":\\\"calibration\\\",\\\"val\\\":\\\"\\\"},{\\\"key\\\":\\\"gelpackPacking\\\",\\\"val\\\":true}]},{\\\"name\\\":\\\"packingOperation\\\",\\\"data\\\":[{\\\"key\\\":\\\"\\\",\\\"val\\\":\\\"\\\"}]}]\",\n        \"transportMode\": \"active\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Update ccdr status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dprNo\": \"123\",\n    \"dprId\": \"232b1c0a-ee31-410d-8eb5-e1f9362a41c9\",\n    \"ccdrStatus\": \"accepted\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/ccdr/status",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"ccdr",
+								"status"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update ccdr status",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dprNo\": \"123\",\n    \"dprId\": \"cca6ba85-dfde-42fe-8979-42c640b2564f\",\n    \"ccdrStatus\": \"accepted\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/ccdr/status",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"ccdr",
+										"status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "983"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d7-+x7aGt9+SDlC9CXEkRLDsrv9Noc\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Sep 2022 15:26:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ccdrStatus\": \"{\\\"status\\\":\\\"accepted\\\",\\\"createdBy\\\":\\\"631b57515006539a5a8977f3\\\",\\\"createdOn\\\":\\\"2022-09-09T20:56:12+05:30\\\"}\",\n    \"createdBy\": \"631b57515006539a5a8977f3\",\n    \"createdOn\": \"2022-09-09T20:51:52+05:30\",\n    \"department\": \"GLOBAL-distrbution\",\n    \"documentNo\": \"!AEEWWQQ\",\n    \"documents\": \"[]\",\n    \"dprNo\": \"123\",\n    \"effectiveDate\": \"2022-09-09T20:51:52+05:30\",\n    \"endDate\": \"2022-09-09T20:51:52+05:30\",\n    \"from\": \"HYD\",\n    \"id\": \"cca6ba85-dfde-42fe-8979-42c640b2564f\",\n    \"isDelete\": \"false\",\n    \"legacyDocNo\": \"23424323423\",\n    \"notes\": \"\",\n    \"orgId\": \"631b57515006539a5a8977f1\",\n    \"packingList\": \"[{\\\"sNo\\\":\\\"1 0f 1\\\",\\\"product\\\":\\\"DOLO\\\",\\\"bNo\\\":\\\"123\\\",\\\"quantity\\\":\\\"120\\\"},{\\\"sNo\\\":\\\"2 0f 1\\\",\\\"product\\\":\\\"Paracetamol\\\",\\\"bNo\\\":\\\"124\\\",\\\"quantity\\\":\\\"180\\\"}]\",\n    \"pickingListNo\": \"12121543534\",\n    \"products\": \"[{\\\"Cresp 40mcg PFS Hospital Supply DOM\\\":\\\"180\\\",\\\"DOLO 300mcg/ml Vial\\\":\\\"1200\\\"}]\",\n    \"referenceSOPNo\": \"SOP-1212121\",\n    \"shipperNo\": \"123\",\n    \"startDate\": \"2022-09-09T20:51:52+05:30\",\n    \"to\": \"DELHI\",\n    \"transportMode\": \"active\",\n    \"version\": \"1.0\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "document upload",
+			"item": [
+				{
+					"name": "Add document to dpr",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/home/vijay/Downloads/test.png"
+								},
+								{
+									"key": "dprNo",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "documentType",
+									"value": "signedSealCode",
+									"type": "text"
+								},
+								{
+									"key": "dprId",
+									"value": "232b1c0a-ee31-410d-8eb5-e1f9362a41c9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/document",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"document"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add document to dpr",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "document",
+											"type": "file",
+											"src": "/home/vijay/Downloads/vijay-dp.jpeg"
+										},
+										{
+											"key": "dprNo",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "documentType",
+											"value": "SEAL_CODE",
+											"type": "text"
+										},
+										{
+											"key": "dprId",
+											"value": "fadd5886-fe16-45eb-8427-7ce754a43385",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/document",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"document"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "346"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15a-JkNx9/EcG0vFegCn2mKDSUXVKw8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 07 Sep 2022 19:04:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"263aa169-4137-4639-87f0-31bb417f36ea\",\n    \"documentType\": \"SEAL_CODE\",\n    \"orginalName\": \"vijay-dp.jpeg\",\n    \"name\": \"document-1662577491048-742519597.jpeg\",\n    \"documentStatus\": {\n        \"status\": \"uploaded\",\n        \"createdOn\": \"2022-09-08T00:34:53+05:30\",\n        \"createdBy\": \"6315c40b41d9326e3b17b03a\"\n    },\n    \"createdOn\": \"2022-09-08T00:34:53+05:30\",\n    \"createdBy\": \"6315c40b41d9326e3b17b03a\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get list of DPR's document",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/document",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"document"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List of docs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/document",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"document"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "940"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3ac-1TJ7BjVO2nDNvj4X1UcBGNR/CEo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 07 Sep 2022 19:13:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"ccdrStatus\": \"not-started\",\n        \"documents\": \"[{\\\"id\\\":\\\"cd33899b-f440-4914-8ed1-f377516160db\\\",\\\"documentType\\\":\\\"LR_COPY\\\",\\\"orginalName\\\":\\\"vijay-dp.jpeg\\\",\\\"name\\\":\\\"document-1662577435909-68511208.jpeg\\\",\\\"documentStatus\\\":{\\\"status\\\":\\\"uploaded\\\",\\\"createdOn\\\":\\\"2022-09-08T00:33:58+05:30\\\",\\\"createdBy\\\":\\\"6315c40b41d9326e3b17b03a\\\"},\\\"createdOn\\\":\\\"2022-09-08T00:33:58+05:30\\\",\\\"createdBy\\\":\\\"6315c40b41d9326e3b17b03a\\\"},{\\\"id\\\":\\\"263aa169-4137-4639-87f0-31bb417f36ea\\\",\\\"documentType\\\":\\\"SEAL_CODE\\\",\\\"orginalName\\\":\\\"vijay-dp.jpeg\\\",\\\"name\\\":\\\"document-1662577491048-742519597.jpeg\\\",\\\"documentStatus\\\":{\\\"status\\\":\\\"uploaded\\\",\\\"createdOn\\\":\\\"2022-09-08T00:34:53+05:30\\\",\\\"createdBy\\\":\\\"6315c40b41d9326e3b17b03a\\\"},\\\"createdOn\\\":\\\"2022-09-08T00:34:53+05:30\\\",\\\"createdBy\\\":\\\"6315c40b41d9326e3b17b03a\\\"}]\",\n        \"dprNo\": \"123\",\n        \"effectiveDate\": \"2022-09-08T00:29:45+05:30\",\n        \"id\": \"fadd5886-fe16-45eb-8427-7ce754a43385\",\n        \"transportMode\": \"active\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve document by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://ec2-13-127-0-50.ap-south-1.compute.amazonaws.com:8080/document/document-1662740695901-897736216.png",
+							"protocol": "http",
+							"host": [
+								"ec2-13-127-0-50",
+								"ap-south-1",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"document",
+								"document-1662740695901-897736216.png"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update document status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dprId\": \"232b1c0a-ee31-410d-8eb5-e1f9362a41c9\",\n    \"documentId\": \"f513533b-4b38-42e8-9907-e8b91244c970\",\n    \"documentStatus\": \"accepted\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/document/status",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"document",
+								"status"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update document status",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dprId\": \"cca6ba85-dfde-42fe-8979-42c640b2564f\",\n    \"documentId\": \"8853de77-33f0-4aee-9974-9d968db3c111\",\n    \"documentStatus\": \"accepted\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/document/status",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"document",
+										"status"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "341"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"155-FN2QtjFNW9zl+OcTZio4o/QFkb0\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 09 Sep 2022 15:48:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"8853de77-33f0-4aee-9974-9d968db3c111\",\n    \"documentType\": \"taxInvoice\",\n    \"orginalName\": \"test.png\",\n    \"name\": \"document-1662737903428-894573648.png\",\n    \"documentStatus\": {\n        \"status\": \"accepted\",\n        \"createdOn\": \"2022-09-09T21:18:43+05:30\",\n        \"createdBy\": \"631b57515006539a5a8977f3\"\n    },\n    \"createdOn\": \"2022-09-09T21:08:25+05:30\",\n    \"createdBy\": \"631b57515006539a5a8977f3\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Temperature Data",
+			"item": [
+				{
+					"name": "Get temperature data for DprNo",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
