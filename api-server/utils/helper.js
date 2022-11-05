@@ -17,6 +17,8 @@ exports.generateId = function(){
 
 exports.getNow = ()=> moment(new Date()).format()
 
+exports.getFormattedNow = ()=> moment(new Date()).format('MMM Do YYYY, h:mm:ss a') // Nov 5th 2022, 6:05:37 pm
+
 exports.CHAINCODE_ACTIONS = {
 	CREATE: 'create',
 	UPDATE: 'update',

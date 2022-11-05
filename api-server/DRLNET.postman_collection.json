@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"superviser\",\n    \"lastName\": \"2\",\n    \"email\": \"superviser2@gmail.com\",\n    \"phoneNumber\": \"123456789\",\n    \"role\": \"superviser\"\n}",
+							"raw": "{\n    \"firstName\": \"superviser\",\n    \"lastName\": \"2\",\n    \"email\": \"admin@gmail.com\",\n    \"phoneNumber\": \"123456789\",\n    \"role\": \"superviser\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1402,9 +1402,264 @@
 					"name": "Get temperature data for DprNo",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{host}}/iot?dprNo=123",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"iot"
+							],
+							"query": [
+								{
+									"key": "dprNo",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get temperature data for DprNo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/iot?dprNo=123",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"iot"
+									],
+									"query": [
+										{
+											"key": "dprNo",
+											"value": "123"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "435"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b3-HcllkfqubiJM7AI/5cyntXGTrw0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Nov 2022 11:13:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"city\": \"Bengaluru\",\n        \"id\": \"202463bc-e835-4be1-939b-bb248893afdc\",\n        \"state\": \"Karnataka\",\n        \"temperature\": \"5.5\",\n        \"timestamp\": \"2022-11-05T16:43:34+05:30\"\n    },\n    {\n        \"city\": \"Bengaluru\",\n        \"id\": \"4174b731-fba6-4513-878b-93c6961b8867\",\n        \"state\": \"Karnataka\",\n        \"temperature\": \"5.2\",\n        \"timestamp\": \"2022-11-05T16:43:43+05:30\"\n    },\n    {\n        \"city\": \"Bengaluru\",\n        \"id\": \"b0932dbe-5547-43c8-9368-7a2d744d8f0a\",\n        \"state\": \"Karnataka\",\n        \"temperature\": \"[5\",\n        \"timestamp\": \"2022-11-05T16:39:00+05:30\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Send IOT data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/temperature_data?Temp=8,2022-11-05T15:00:00+05:30,122.171.21.211,123,asdfgf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"temperature_data"
+							],
+							"query": [
+								{
+									"key": "Temp",
+									"value": "8,2022-11-05T15:00:00+05:30,122.171.21.211,123,asdfgf",
+									"description": "temperature, timestamp, ip, dprNo, deviceId"
+								}
+							]
+						}
 					},
 					"response": []
+				},
+				{
+					"name": "Create Alert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dprNo\": \"124\",\n    \"problem\": \"100\\u00b0 Container Temperature Threshold Exceeded! 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/alert",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alert"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Alert",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dprNo\": \"123\",\n    \"problem\": \"100\\u00b0 Container Temperature Threshold Exceeded!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/alert",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"alert"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "229"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e5-ic4lFAYPbrxJx52YhelIHJuLszc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Nov 2022 11:25:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"6366481540885154eb067b04\",\n    \"dprNo\": \"123\",\n    \"problem\": \"100° Container Temperature Threshold Exceeded!\",\n    \"orgId\": \"631e30b3108198330d750aa2\",\n    \"createdAt\": \"2022-11-05T11:25:09.341Z\",\n    \"updatedAt\": \"2022-11-05T11:25:09.341Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/dashboard",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"dashboard"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "dashboard",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dashboard",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "674"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2a2-5ATbbW1o/mFv8tkXRmBjhJBtimo\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 05 Nov 2022 12:40:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"mission\": {\n        \"total\": 0,\n        \"ongoing\": 0,\n        \"ended\": 0,\n        \"iotDevices\": 2\n    },\n    \"dprList\": [\n        {\n            \"id\": \"489a5d2a-470a-4c6a-8a9e-89514499b300\",\n            \"temperature\": \"8\",\n            \"timestamp\": \"2022-11-05T18:10:37+05:30\",\n            \"dprNo\": \"123\"\n        }\n    ],\n    \"recentAlert\": [\n        {\n            \"_id\": \"124\",\n            \"dprNo\": \"124\",\n            \"problems\": [\n                \"100° Container Temperature Threshold Exceeded! 2\",\n                \"100° Container Temperature Threshold Exceeded! 1\",\n                \"100° Container Temperature Threshold Exceeded!\"\n            ]\n        },\n        {\n            \"_id\": \"123\",\n            \"dprNo\": \"123\",\n            \"problems\": [\n                \"8° red alert - Nov 5th 2022, 6:10:37 pm\",\n                \"7.5° orange alert - Nov 5th 2022, 6:10:13 pm\",\n                \"2° red alert - Nov 5th 2022, 6:09:46 pm\",\n                \"2.5° orange alert - Nov 5th 2022, 6:08:36 pm\",\n                \"100° Container Temperature Threshold Exceeded!\"\n            ]\n        }\n    ]\n}"
 				}
 			]
 		}

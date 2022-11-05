@@ -10,87 +10,92 @@ router.get('', async (req, res) => {
     try {
         let { email, msp, orgId } = req.user
 
-            // retrive dpr from blockchain - total count
-            let query = { selector: { orgId }, fields: ['startDate', 'endDate'] }
+        // TODO remove this later
+        orgId = "631e30b3108198330d750aa2"
 
-            let queryString = JSON.stringify(query)
+        // retrive dpr from blockchain - total count
+        let query = { selector: { orgId }, fields: ['dprNo', 'startDate', 'endDate'] }
 
-            let dataStr = await invokeTransactionV2({
-                metaInfo: { userName: email, org: msp },
-                chainCodeAction: CHAINCODE_ACTIONS.GET,
-                chainCodeFunctionName: 'querystring',
-                chainCodeName: CHAINCODE_NAMES.DPR,
-                channelName: CHAINCODE_CHANNEL,
-                data: queryString
-            })
+        let queryString = JSON.stringify(query)
 
-            let data = JSON.parse(dataStr)
-            console.log("mission ", data)
-            let obj = { total: 0, ongoing: 0, ended: 0, iotDevices: 2 }
+        let dataStr = await invokeTransactionV2({
+            metaInfo: { userName: email, org: msp },
+            chainCodeAction: CHAINCODE_ACTIONS.GET,
+            chainCodeFunctionName: 'querystring',
+            chainCodeName: CHAINCODE_NAMES.DPR,
+            channelName: CHAINCODE_CHANNEL,
+            data: queryString
+        })
 
-            for(let i=0; i< data.length; i++) {
-                let dpr = data[i]
-                let start = new Date(dpr.startDate)
-                let end = new Date(dpr.endDate)
+        let data = JSON.parse(dataStr)
+        console.log("mission ", data)
+        let obj = { total: 0, ongoing: 0, ended: 0, iotDevices: 2 }
 
-                if (start > end) {
-                    console.log("start > end")
-                    obj.total = obj.total + 1
-                    obj.ongoing = obj.ongoing + 1
-                }
+        let ongoingDprs = ["123", "124"]
 
-                if (end > start) {
-                    console.log("end > start")
-                    obj.total = obj.total + 1
-                    obj.ended = obj.ended + 1
-                }
+        for(let i=0; i< data.length; i++) {
+            let dpr = data[i]
+            let start = new Date(dpr.startDate)
+            let end = new Date(dpr.endDate)
 
-                if(start == end){
-                    console.log("start == end")
-                }
+            if (start > end) {
+                console.log("start > end")
+                obj.total = obj.total + 1
+                obj.ongoing = obj.ongoing + 1
+                ongoingDprs.push(dpr.dprNo)
             }
+
+            if (end > start) {
+                console.log("end > start")
+                obj.total = obj.total + 1
+                obj.ended = obj.ended + 1
+            }
+
+            if(start == end){
+                console.log("start == end")
+            }
+        }
 
         // recent dprNo list 
         // sort recent dpr number
 
-            let dprObjs = global.recent[orgId]
-            console.log("dprObjs : ", dprObjs);
-            let dprs = [
-                { dprNo: "10000", temperature: "6.0", timestamp: getNow() },
-                { dprNo: "10002", temperature: "8.0", timestamp: getNow() },
-                { dprNo: "10001", temperature: "12.0", timestamp: getNow() },
-                { dprNo: "10001", temperature: "13.0", timestamp: getNow() },
-                { dprNo: "10001", temperature: "18.0", timestamp: getNow() },
-            ]
+        let dprObjs = global.recent[orgId]
+        console.log("dprObjs : ", dprObjs);
 
-            // for(let key in dprObjs){
-            //     let temp = { ...dprObjs[key], dprNo: key }
-            //     dprs.push(temp)
-            // }
+        let dprs = []
+
+        for(let key in dprObjs){
+            let temp = { ...dprObjs[key], dprNo: key }
+            dprs.push(temp)
+        }
 
 
-            // dprs.sort((a, b)=>{
-            //     let ta = new Date(a.timestamp)
-            //     let tb = new Date(b.timestamp)
+        dprs.sort((a, b)=>{
+            let ta = new Date(a.timestamp)
+            let tb = new Date(b.timestamp)
 
-            //     return tb - ta
-            // })
+            return tb - ta
+        })
 
         // get recent 5 alerts of dprNo
-        // let recentFiveAlerts = AlertModel.find({ orgId }).distinct('dprNo').sort({ createdAt: -1 }).limit(5)
-        // let recentFiveAlerts = await AlertModel.aggregate(
-        //     [
-        //         { "$unwind": "$dprNo" },
-        //         { "$group": { "_id": "$dprNo" } },
-        //         { "$sort": { "createdAt": -1 } },
-        //         { "$limit":  }
-        //     ]
-        // ).limit(5)
-
-        let recentFiveAlerts = [
-            { dprNo: "10000", problem: "Accident" },
-            { dprNo: "10001", problem: "Heavy traffic jam in hyderabad" },
-        ]
+        let recentFiveAlerts = await AlertModel.aggregate(
+            [
+                { "$match": { dprNo: { $in: ongoingDprs } } },
+                { "$sort": { createdAt: -1 } },
+                { "$group": {
+                        "_id": "$dprNo",
+                        "problems": { $push: "$problem" }
+                    } 
+                },
+                { "$project": {
+                        _id: "$_id",
+                        dprNo: "$_id",
+                        problems: { $slice: ["$problems", 0, 5] }            
+                    }
+                
+                }
+            ]
+        )
 
         // let [mission, dprList, recentAlert] = Promise.all([missions, dprListObj])
 
